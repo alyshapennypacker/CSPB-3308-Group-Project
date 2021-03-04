@@ -1,26 +1,56 @@
 class User:
-    def __init__(self, profileId, profilePic):
+    def __init__(self, profileId):
         self.profileId = profileId
-        self.profilePic = profilePic
-        self.interests = self.selectInterests()
+        self.friends = []
+        self.projects = []
+        self.communitiesFollowed = {
+            'communities': [],
+            'isAdmin': False  # Ability to post projects
+        }
 
     def __str__(self):
         return self.firstName + " " + self.lastName
 
-    def setProile(self):
+    def getProile(self):
         '''
-        GET data from application form
+        GET data from 3-step application form
         '''
-        def personalInfo() -> None:
-            ''' GET from personal info form '''
-            self.firstName = None
-            self.lastName = None
-            self.email = None
-            self.email = None
 
-        def projectTopics(self) -> list:
-            ''' GET from project topics form '''
-            self.projectTopics = []
+        def getPersonalInfo(self):
+            ''' GET from personalInfo form '''
+            self.profileInfo = {
+                'firstName': None,
+                'lastName': None,
+                'email': None,
+            }
+            self.profilePic = None
+
+        # Based off stackoverflow objects, see in ../meta/stackoverflow_survey_data.py
+        # Restrict selection (i.e. pick up to X topics)
+        def getProjectTopics(self):
+            ''' GET from projectTopics form '''
+            self.interests = {
+                'industry': [],
+                'roles': [],
+                'technologies': {
+                    'profficient': [],
+                    'wantToLearn': []
+                }
+            }
+
+        def getConstraints(self):
+            ''' GET from contraints form '''
+            self.constraints = {
+                self.weeklyTimeCommit: None,  # format: Hours/week
+                self.yearsOfExp: None,
+                self.numProjects: None,
+            }
+
+    def saveProfile(self):
+        '''
+        Save user info in .db file
+        '''
+        pass
 
 
 if __name__ == '__main__':
