@@ -1,3 +1,5 @@
 scratch-db/src/
-3308venv/
+venv/
 .vscode/
+*.pyc
+*.pyo
