@@ -1,5 +1,9 @@
-scratch-db/src/
-venv/
-.vscode/
+__pycache__/
 *.pyc
 *.pyo
+venv/
+.vscode/
+scratch/src/
+__init__.py
+pylintrc
+run.sh
