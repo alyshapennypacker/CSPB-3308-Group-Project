@@ -13,23 +13,24 @@ db = SQLAlchemy(app)
 
 
 class Users(db.Model):
+    ''' User Table '''
     user_id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(20), nullable=False)
     last_name = db.Column(db.String(20), nullable=False)
     email_address = db.Column(db.String(120), unique=True, nullable=False)
     profile_image = db.Column(db.String(20), nullable=False, default="profile.jpg")
-    career_goals = db.Column(db.String(120), unique=False, nullable=True)
     date_joined = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     is_moderator = db.Column(db.Boolean, default=False, nullable=False)
 
     skill_1_id = db.Column(db.Integer, default=False, nullable=False)
-    skill_1_proficiency = db.Column(db.String(120), unique=True, nullable=False)
+    skill_1_proficiency = db.Column(db.Integer, nullable=False)
     skill_2_id = db.Column(db.Integer, default=False, nullable=False)
-    skill_2_proficiency = db.Column(db.String(120), unique=True, nullable=False)
+    skill_2_proficiency = db.Column(db.Integer, nullable=False)
     skill_3_id = db.Column(db.Integer, default=False, nullable=False)
-    skill_3_proficiency = db.Column(db.String(120), unique=True, nullable=False)
+    skill_3_proficiency = db.Column(db.Integer, nullable=False)
 
     # Todo: test skills first
+    # career_goals = db.Column(db.String(120), unique=False, nullable=True)
     # user_cs_field_interests = string deliminiated
     # user_application_interests = string deliminated
 
@@ -38,6 +39,7 @@ class Users(db.Model):
 
 
 class Projects(db.Model):
+    ''' Projects Table: containg group projects a user can post '''
     project_id = db.Column(db.Integer, primary_key=True)
     project_name = db.Column(db.String(250), unique=True, nullable=False)
     project_desc = db.Column(db.String(500), unique=False, nullable=False)
@@ -49,21 +51,17 @@ class Projects(db.Model):
     # project_skills = string
     # project_owner_id = int
 
-    # Todo: test skills first
-    #project_applications = string
+    # project_applications = string                    # Todo: test skills first
     # project_cs_field = string
-
-    # Todo: junction table
-    # member_ids = string of each members id
+    # member_ids = string of each members id           # Todo: junction table
     # members_timestamp_join = datetime corresponding to each member’s joining
-
-    # Todo: next sprint
-    #like_count = int
+    # like_count = int                                 # Todo: next sprint
     #comments = tbd
     #threads = tbd
 
 
 class Skills(db.Model):
+    ''' Skills Table: common technical skills per StackOverflow 2019 survey '''
     skill_id = db.Column(db.Integer, primary_key=True)
     skill_name = db.Column(db.String(50), unique=True, nullable=False)
     skill_desc = db.Column(db.String(250), nullable=False)
@@ -71,13 +69,18 @@ class Skills(db.Model):
 
 
 class Applications(db.Model):
+    ''' Applications Table: Applications of a group project 
+    - can be end-users (ex. hospital patients) 
+    - can be purpose of project (ex. education) 
+    '''
     application_id = db.Column(db.Integer, primary_key=True)
     application_name = db.Column(db.String(50), unique=True, nullable=False)
     application_desc = db.Column(db.String(250), nullable=False)
     application_image = db.Column(db.String(20), nullable=False, default="application.jpg")
 
 
-class csField(db.Model):
+class cs_Field(db.Model):
+    ''' csField Table: common SWE related roled per StackOverflow 2019 survey '''
     csfield_id = db.Column(db.Integer, primary_key=True)
     csfield_name = db.Column(db.String(50), unique=True, nullable=False)
     csfield_desc = db.Column(db.String(250), nullable=False)
