@@ -28,17 +28,22 @@ class Users(db.Model):
     date_joined = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     is_moderator = db.Column(db.Boolean, default=False, nullable=False)
 
-    skill_1_id = db.Column(db.Integer, default=False, nullable=False)
-    skill_1_proficiency = db.Column(db.Integer, nullable=False)
-    skill_2_id = db.Column(db.Integer, default=False, nullable=False)
-    skill_2_proficiency = db.Column(db.Integer, nullable=False)
-    skill_3_id = db.Column(db.Integer, default=False, nullable=False)
-    skill_3_proficiency = db.Column(db.Integer, nullable=False)
+    #skill_1_id = db.Column(db.Integer, default=False, nullable=False)
+    skill_id = db.Column(db.Integer, db.ForeignKey('Skills.skill_id'), nullable=False)
+    # skill_1 = db.relationship('Skills', backref='author', lazy=True)
+
+
+    # skill_1_proficiency = db.Column(db.Iteger, nullable=False)
+    # skill_2_id = db.Column(db.Integer, default=False, nullable=False)
+    # skill_2_proficiency = db.Column(db.Integer, nullable=False)
+    # skill_3_id = db.Column(db.Integer, default=False, nullable=False)
+    # skill_3_proficiency = db.Column(db.Integer, nullable=False)
 
     # define User table's relationship, to Post table
     # - backref: auto merge user fields to posts
     # - lazy: allows us to get ALL posts for a given user
-    posts = db.relationship('Post', backref='author', lazy=True)
+    #projects = db.relationship('Projects', backref='author', lazy=True)
+ 
 
     def __repr__(self):
         return f"User('{self.username}', '{self.email}', '{self.image_file}')"
