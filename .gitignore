@@ -1,8 +1,9 @@
 __pycache__/
 *.pyc
 *.pyo
+# Project specific 
 venv/
-.vscode/
+# .vscode/
 scratch/src/
 __init__.py
 pylintrc

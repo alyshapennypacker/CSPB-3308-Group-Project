@@ -12,6 +12,12 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 db = SQLAlchemy(app)
 
 
+@app.route('/')
+@app.route('/home')
+def home():
+    return "hello"
+
+
 class Users(db.Model):
     ''' User Table '''
     user_id = db.Column(db.Integer, primary_key=True)
@@ -28,6 +34,14 @@ class Users(db.Model):
     skill_2_proficiency = db.Column(db.Integer, nullable=False)
     skill_3_id = db.Column(db.Integer, default=False, nullable=False)
     skill_3_proficiency = db.Column(db.Integer, nullable=False)
+
+    # define User table's relationship, to Post table
+    # - backref: auto merge user fields to posts
+    # - lazy: allows us to get ALL posts for a given user
+    posts = db.relationship('Post', backref='author', lazy=True)
+
+    def __repr__(self):
+        return f"User('{self.username}', '{self.email}', '{self.image_file}')"
 
     # Todo: test skills first
     # career_goals = db.Column(db.String(120), unique=False, nullable=True)
@@ -53,11 +67,17 @@ class Projects(db.Model):
 
     # project_applications = string                    # Todo: test skills first
     # project_cs_field = string
-    # member_ids = string of each members id           # Todo: junction table
+
+    # Todo: junction table
+    member_ids = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, primary_key=True)
+    project_id = db.Column(db.Integer, primary_key=True)
     # members_timestamp_join = datetime corresponding to each member’s joining
-    # like_count = int                                 # Todo: next sprint
-    #comments = tbd
-    #threads = tbd
+
+    # Todo: next sprint
+    # like_count = int
+    # comments = tbd
+    # threads = tbd
 
 
 class Skills(db.Model):
@@ -69,7 +89,8 @@ class Skills(db.Model):
 
 
 class Applications(db.Model):
-    ''' Applications Table: Applications of a group project 
+    ''' 
+    Applications Table: Applications of a group project 
     - can be end-users (ex. hospital patients) 
     - can be purpose of project (ex. education) 
     '''
@@ -79,18 +100,16 @@ class Applications(db.Model):
     application_image = db.Column(db.String(20), nullable=False, default="application.jpg")
 
 
-class cs_Field(db.Model):
-    ''' csField Table: common SWE related roled per StackOverflow 2019 survey '''
+class csField(db.Model):
+    ''' 
+    csField Table: 
+    Common SWE related roled per StackOverflow 2019 survey 
+    - examples of csfield_name {backend, frontend, mobile ,devops, etc.}
+    '''
     csfield_id = db.Column(db.Integer, primary_key=True)
     csfield_name = db.Column(db.String(50), unique=True, nullable=False)
     csfield_desc = db.Column(db.String(250), nullable=False)
     csfield_image = db.Column(db.String(20), nullable=False, default="csField.jpg")
-
-
-@app.route('/')
-@app.route('/home')
-def home():
-    return "hello"
 
 
 if __name__ == '__main__':
