@@ -18,28 +18,28 @@ db.create_all()
 #     skill_3_proficiency=2,
 # )
 
-user_2 = Users(
-    #user_id=3,
-    first_name='simon',
-    last_name='says',
-    email_address="jeff@gmail.com",
-    is_moderator=True,
-    skill_id=1,
-    # skill_1_proficiency=3,
-    # skill_2_id=6,
-    # skill_2_proficiency=4,
-    # skill_3_id=1,
-    # skill_3_proficiency=2,
-)
-
 # db.session.add(user_1)
 
-db.session.add(user_2)
-db.session.commit()
+# user_2 = Users(
+#     # user_id=3,
+#     first_name='simon',
+#     last_name='says',
+#     email_address="jeff@gmail.com",
+#     is_moderator=True,
+#     skill_id=1,
+#     # skill_1_proficiency=3,
+#     # skill_2_id=6,
+#     # skill_2_proficiency=4,
+#     # skill_3_id=1,
+#     # skill_3_proficiency=2,
+# )
+
+# db.session.add(user_2)
+# db.session.commit()
 
 
 skill_1 = Skills(
-    skill_id=1,
+    # skill_id=1,
     skill_name="Python",
     skill_desc="An general purpose Object Oriented language",
 )

@@ -20,7 +20,7 @@ def home():
 
 class Users(db.Model):
     ''' User Table '''
-    user_id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(20), nullable=False)
     last_name = db.Column(db.String(20), nullable=False)
     email_address = db.Column(db.String(120), unique=True, nullable=False)
@@ -29,9 +29,8 @@ class Users(db.Model):
     is_moderator = db.Column(db.Boolean, default=False, nullable=False)
 
     #skill_1_id = db.Column(db.Integer, default=False, nullable=False)
-    skill_id = db.Column(db.Integer, db.ForeignKey('Skills.skill_id'), nullable=False)
+    skill_id = db.Column(db.Integer, db.ForeignKey('skills.id'), nullable=False)
     # skill_1 = db.relationship('Skills', backref='author', lazy=True)
-
 
     # skill_1_proficiency = db.Column(db.Iteger, nullable=False)
     # skill_2_id = db.Column(db.Integer, default=False, nullable=False)
@@ -43,7 +42,6 @@ class Users(db.Model):
     # - backref: auto merge user fields to posts
     # - lazy: allows us to get ALL posts for a given user
     #projects = db.relationship('Projects', backref='author', lazy=True)
- 
 
     def __repr__(self):
         return f"User('{self.username}', '{self.email}', '{self.image_file}')"
@@ -59,7 +57,7 @@ class Users(db.Model):
 
 class Projects(db.Model):
     ''' Projects Table: containg group projects a user can post '''
-    project_id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     project_name = db.Column(db.String(250), unique=True, nullable=False)
     project_desc = db.Column(db.String(500), unique=False, nullable=False)
     project_creation_timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
@@ -74,9 +72,9 @@ class Projects(db.Model):
     # project_cs_field = string
 
     # Todo: junction table
-    member_ids = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, primary_key=True)
-    project_id = db.Column(db.Integer, primary_key=True)
+    # member_ids = db.Column(db.Integer, primary_key=True)
+    # user_id = db.Column(db.Integer, primary_key=True)
+    # project_id = db.Column(db.Integer, primary_key=True)
     # members_timestamp_join = datetime corresponding to each member’s joining
 
     # Todo: next sprint
@@ -87,7 +85,7 @@ class Projects(db.Model):
 
 class Skills(db.Model):
     ''' Skills Table: common technical skills per StackOverflow 2019 survey '''
-    skill_id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     skill_name = db.Column(db.String(50), unique=True, nullable=False)
     skill_desc = db.Column(db.String(250), nullable=False)
     skill_image = db.Column(db.String(20), nullable=False, default="skill.jpg")
@@ -99,7 +97,7 @@ class Applications(db.Model):
     - can be end-users (ex. hospital patients) 
     - can be purpose of project (ex. education) 
     '''
-    application_id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     application_name = db.Column(db.String(50), unique=True, nullable=False)
     application_desc = db.Column(db.String(250), nullable=False)
     application_image = db.Column(db.String(20), nullable=False, default="application.jpg")
@@ -111,7 +109,7 @@ class csField(db.Model):
     Common SWE related roled per StackOverflow 2019 survey 
     - examples of csfield_name {backend, frontend, mobile ,devops, etc.}
     '''
-    csfield_id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     csfield_name = db.Column(db.String(50), unique=True, nullable=False)
     csfield_desc = db.Column(db.String(250), nullable=False)
     csfield_image = db.Column(db.String(20), nullable=False, default="csField.jpg")
