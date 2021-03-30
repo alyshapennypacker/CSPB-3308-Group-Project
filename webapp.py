@@ -4,11 +4,6 @@ from flask_sqlalchemy import SQLAlchemy
 # from flask import render_template, url_for, flash, redirect
 # from forms import RegistrationForm, LoginForm
 
-# woooooooooooohoooooo!
-# https://stackoverflow.com/questions/57202736/where-should-i-implement-flask-custom-commands-cli
-# import tests.bootstrap_tables as boot
-
-
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False  # Supress deprecation message
@@ -29,7 +24,7 @@ def bootstrap_data():
     db.drop_all()
     db.create_all()
     bootstrap_helper()
-    print("Initialized and Bootstrapped DB tables with data")
+    print("Initialized clean DB tables and Bootstrapped with data")
 
 
 # Association table: automatically updates based on Users and Projects tables (https://docs.sqlalchemy.org/en/14/orm/basic_relationships.html#many-to-many)
@@ -156,7 +151,7 @@ class ProjectInterests(db.Model):
 
 # ----------------------------------------------------------------------------------------------------------------------------
 def bootstrap_helper():
-    ''' Actually populates database with data '''
+    ''' Actually populates database with sample data '''
     # ---------- Add Skills ----------
     skill_python = Skills(name="Python", desc="An general purpose Object Oriented language")
     skill_cpp = Skills(name="C++", desc="Low Level Programming Language")
