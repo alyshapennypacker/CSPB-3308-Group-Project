@@ -33,6 +33,7 @@ def bootstrap_data():
 
 
 # Association table: automatically updates based on Users and Projects tables
+# https://docs.sqlalchemy.org/en/14/orm/basic_relationships.html#many-to-many
 UserProjects = db.Table("userproject",
                         db.Column("user_id", db.Integer, db.ForeignKey("user.id"), primary_key=True),
                         db.Column("project_id", db.Integer, db.ForeignKey("project.id"), primary_key=True))
@@ -54,18 +55,13 @@ class Users(db.Model):
     skill_proficiency_2 = db.Column(db.Integer, nullable=False)
     skill_proficiency_3 = db.Column(db.Integer, nullable=False)
 
-    # option 1) 1 to Many
-    # Multiple foriegn keys to one table
+    # Skills - Multiple foriegn keys to one table
     skill_id_1 = db.Column(db.Integer, db.ForeignKey('skill.id'), nullable=False)
     skill_id_2 = db.Column(db.Integer, db.ForeignKey('skill.id'), nullable=False)
     skill_id_3 = db.Column(db.Integer, db.ForeignKey('skill.id'), nullable=False)
     skill_1 = db.relationship("Skills", foreign_keys=skill_id_1)
     skill_2 = db.relationship("Skills", foreign_keys=skill_id_2)
     skill_3 = db.relationship("Skills", foreign_keys=skill_id_3)
-    # option 2) Many to Many
-    # secondary join to reduce the need for 3 columns for each skill
-    # need to make an association table ("users_skills")
-    # skills = db.relationship("Skills", secondary=users_skills, backref="users", lazy="select")
 
     def __repr__(self):
         return f"User('{self.first_name}', '{self.last_name}', '{self.email}')"
@@ -82,8 +78,6 @@ class Projects(db.Model):
     creation_timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     start_date = db.Column(db.DateTime, nullable=True, default=datetime.utcnow)
     target_end_date = db.Column(db.DateTime, nullable=True, default=datetime.utcnow)
-
-    # https://docs.sqlalchemy.org/en/14/orm/basic_relationships.html#many-to-many
     project_members = db.relationship('Users',
                                       secondary=UserProjects,
                                       lazy='subquery',
@@ -102,11 +96,6 @@ class Skills(db.Model):
     name = db.Column(db.String(50), unique=True, nullable=False)
     desc = db.Column(db.String(250), nullable=False)
     image = db.Column(db.String(20), nullable=False, default="skill.jpg")
-
-    # Relationship on skills, defines users per skill
-    # ---------------------- Class name here -- some useful name for Skills.<backref>
-    # users = db.relationship("Users", backref="allskills", lazy='dynamic',
-    #                         primaryjoin="and_(Skills.id==Users.skill_id_1, Skills.id==Users.skill_id_2, Skills.id==Users.skill_id_3)")
 
     def __repr__(self):
         return f"Skill('{self.name}', '{self.desc}')"
@@ -134,13 +123,11 @@ class ProjectInterests(db.Model):
     desc = db.Column(db.String(250), nullable=False)
     image = db.Column(db.String(20), nullable=False, default="ProjectInterests.jpg")
 
+
 # ----------------------------------------------------------------------------------------------------------------------------
-
-
 def bootstrap_helper():
     ''' Actually populates database with data '''
-    # Add Skills
-    # --------------------------------------------------------------
+    # ---------- Add Skills ----------
     skill_python = Skills(name="Python", desc="An general purpose Object Oriented language")
     skill_cpp = Skills(name="C++", desc="Low Level Programming Language")
     skill_3 = Skills(name="Javascript", desc="Web Development Language")
@@ -152,9 +139,7 @@ def bootstrap_helper():
     db.session.add(skill_4)
     db.session.commit()
 
-    # Add Users
-    # --------------------------------------------------------------
-
+    # ---------- Add Users ----------
     user_1 = Users(first_name='daniel', last_name='bae', email="dan@gmail.com",
                    skill_id_1=skill_python.id,
                    skill_proficiency_1=4,
@@ -184,8 +169,7 @@ def bootstrap_helper():
     db.session.add(user_3)
     db.session.commit()
 
-    # Add Projects
-    # --------------------------------------------------------------
+    # ---------- Add Projects ----------
     project_1 = Projects(name="Lets make a React App!!!",
                          desc="Welcome all levels of exp, just looking to get expossure to react")
     project_2 = Projects(name="Anyone looking to get started with mobile development?",
@@ -193,23 +177,20 @@ def bootstrap_helper():
     db.session.add(project_1)
     db.session.add(project_2)
 
-    # Projects - Adding members to projects
-    # --------------------------------------------------------------
+    # ---------- Projects - Adding members to projects ----------
     # Adding new rows using pythonic lists functionality (append, extend)
     project_1.project_members.extend((user_1, user_2, user_3))
     project_2.project_members.append(user_3)
     db.session.commit()
 
-    # Add Fields
-    # --------------------------------------------------------------
+    # ---------- Add Fields ----------
     field_1 = csField(name="Front-End", desc="User interface")
     field_2 = csField(name="Back-End", desc="Servers")
     db.session.add(field_1)
     db.session.add(field_2)
     db.session.commit()
 
-    # Add ProjectInterests
-    # --------------------------------------------------------------
+    # ---------- Add ProjectInterests ----------
     interest_1 = ProjectInterests(name="Medical", desc="Genteics, Medical imaging, etc.")
     interest_2 = ProjectInterests(name="Space", desc="Simulations, Robotics, Computer vision")
     db.session.add(interest_1)
