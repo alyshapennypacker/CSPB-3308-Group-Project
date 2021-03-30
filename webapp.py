@@ -27,6 +27,12 @@ def bootstrap_data():
     print("Initialized clean DB tables and Bootstrapped with data")
 
 
+@ app.route('/')
+@ app.route('/home')
+def home():
+    return "hello"
+
+
 # Association table: automatically updates based on Users and Projects tables (https://docs.sqlalchemy.org/en/14/orm/basic_relationships.html#many-to-many)
 UserProjects = db.Table("userproject",
                         db.Column("user_id", db.Integer, db.ForeignKey("user.id"), primary_key=True),
@@ -263,13 +269,6 @@ def bootstrap_helper():
     new_project.project_members.append(new_user)
     new_project.project_members.extend((new_user_2, new_user_3))
     db.session.commit()
-
-
-# Sample Route
-@ app.route('/')
-@ app.route('/home')
-def home():
-    return "hello"
 
 
 if __name__ == '__main__':
