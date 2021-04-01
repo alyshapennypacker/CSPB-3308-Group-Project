@@ -27,4 +27,4 @@ deploy:
     - aws s3 cp ./json/ s3://unicons.iconscout.com/release/$CI_COMMIT_REF_NAME/json/ --recursive --content-type application/json --endpoint-url $AWS_ENDPOINT
   environment:
     name: production/$CI_COMMIT_REF_NAME
-    url: https://unicons.iconscout.com/release/$CI_COMMIT_REF_NAME/home.html
+    url: https://unicons.iconscout.com/release/$CI_COMMIT_REF_NAME/index.html
