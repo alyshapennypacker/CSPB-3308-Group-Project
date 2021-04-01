@@ -19,7 +19,7 @@ glob(sourcePath, function (err, files) {
   // Clear Directories
   fs.removeSync(destPath + '/font')
   fs.removeSync(destPath + '/css')
-  fs.removeSync(destPath + '/home.html')
+  fs.removeSync(destPath + '/index.html')
 
   // Move Font Files
   fs.rename(fontFolder + '/font', destPath + '/font', (err) => {
@@ -34,7 +34,7 @@ glob(sourcePath, function (err, files) {
   })
 
   // Move Demo File
-  fs.rename(fontFolder + '/demo.html', destPath + '/home.html', (err) => {
+  fs.rename(fontFolder + '/demo.html', destPath + '/index.html', (err) => {
     if (err) throw err
     console.log('Demo.html moved!')
   })
