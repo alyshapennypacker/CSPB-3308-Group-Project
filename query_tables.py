@@ -9,12 +9,11 @@ Goal: test the following cases with queries
 
 Note: children (Users) inherit attributes from parent(Skills) tables 
 """
-from webapp import db
-from webapp import Users, Projects, Skills, Roles, Industries, ProjectInterests, UserProjects
+from webapp import db, Users, Projects, Skills, Roles, Industries, ProjectInterests, UserProjects
 from sqlalchemy import or_
 
 
-# 1) convert all rows Users into: a list of objects
+# 1) Convert all rows in Users table, into a list of objects
 user_rows = Users.query.all()
 print("Object Relational Mappers(SQLAlchemy) represent tables as a List of Objects\n")
 print(f"user_rows type = {type(user_rows)}")
@@ -23,23 +22,24 @@ for user in user_rows:
 print("-"*100)
 
 
-# 2) Find all users names with a skill of python
-skill_python = Skills.query.filter_by(name='Python').first()
+# 2A) Find all python users (contain skill "Python")
 print("Query all users with skill_python as a skill\n")
+skill_python = Skills.query.filter_by(name='Python').first()
 python_users = Users.query.filter(or_(Users.skill_id_1 == skill_python.id,
                                       Users.skill_id_2 == skill_python.id,
                                       Users.skill_id_3 == skill_python.id))
 for person in python_users:
     print(f"python users:{person.first_name} {person.last_name}")
-print("-"*100)
+print("-"*50)
 
+# 2B) Print out other skills names, of all our Python users
 some_user = Users.query.filter_by(first_name='daniel').first()
-print(some_user.skill_1, some_user.skill_1.name, some_user.skill_2.name)
+print(some_user.skill_1, '\n', some_user.skill_1.name, some_user.skill_2.name)
 print("-"*100)
 
 
 # 3) Testing Many to Many relationship
-# Using .relationship() named "project_members" found on Projects table
+# 3A) Using .relationship() named "project_members" found on Projects table
 print("Query - Pull all users from projects tables\n")
 project_rows = Projects.query.all()
 for project in project_rows:
@@ -48,7 +48,7 @@ for project in project_rows:
         print(f'\t i={idx}: {member})')
 print("-"*50)
 
-# Using backref "projects" (~invisble column on Users table)
+# 3B) Using backref "projects" (~invisble column on Users table)
 print("Bi-Direction: Pull all projects a given user is on\n")
 for user in user_rows:
     print(user)
@@ -57,7 +57,12 @@ for user in user_rows:
 print("-"*100)
 
 
-# 4) Testing Relationships other 1 to many relationships
+# 4) Testing 1 to many Relationships of X table
+# X table to many user
+# X table to many projects
+tableClasses = [Roles, Industries, ProjectInterests]
+
+
 def printTest(tableClasses):
     for table in tableClasses:
         rows = table.query.all()
@@ -71,5 +76,4 @@ def printTest(tableClasses):
                 print(f'\t i={idx}: {project})')
 
 
-tableClasses = [Roles, Industries, ProjectInterests]
 printTest(tableClasses)
