@@ -11,7 +11,7 @@ from stackoverflow survey 2020 data:
 "Career Goals" - developerRoles (role, percentage)
 https://insights.stackoverflow.com/survey/2020#developer-profile-developer-type-all-respondents
 '''
-developerRoles = [
+developerRolesTuple = [
     ('Developer, back-end', 55.2),
     ('Developer, full-stack', 54.9),
     ('Developer, front-end', 37.1),
@@ -36,6 +36,12 @@ developerRoles = [
     ('Senior executive/VP', 2.7),
     ('Marketing or sales professional', 1.3),
 ]
+
+roleNames = ['Developer, back-end', 'Developer, full-stack', 'Developer, front-end', 'Developer, desktop or enterprise applications', 'Developer, mobile',
+             'DevOps specialist', 'Database administrator', 'Designer', 'System administrator', 'Developer, embedded applications or devices', 'Data or business analyst',
+             'Data scientist or machine learning specialist', 'Developer, QA or test', 'Engineer, data', 'Academic researcher', 'Educator', 'Developer, game or graphics',
+             'Engineering manager', 'Product manager', 'Scientist', 'Engineer, site reliability', 'Senior executive/VP', 'Marketing or sales professional']
+
 
 '''
 "applications" - Work Industries (industry, percentage)
@@ -67,10 +73,16 @@ Industries = [
     ('Nonprofit', 0.6),
     ('Real estate', 0.6)
 ]
+industryNames = ['Software development - other', 'Information technology', 'Financial and banking', 'Software as a service (saas) development', 'Web development or design', 'Consulting',
+                 'Data and analytics', 'Health care or social services', 'Media, advertising, publishing, or entertainment', 'Retail or ecommerce',
+                 'Internet', 'Education and training', 'Manufacturing', 'Cloud-based solutions or services', 'Government or public administration', 'Research - academic or scientific',
+                 'Telecommunications', 'Transportation', 'Energy or utilities', 'Security', 'Marketing', 'Travel', 'Nonprofit', 'Real estate']
 
 '''
-Correlated technologies graph
+Table: ProjectInterests
 
+
+Correlated technologies graph
 Select up to 5 technologies you are profficient in
 Select up to 3 technologies you would like to learn
 

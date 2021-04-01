@@ -10,7 +10,7 @@ Goal: test the following cases with queries
 Note: children (Users) inherit attributes from parent(Skills) tables 
 """
 from webapp import db
-from webapp import Users, Projects, Skills, csField, ProjectInterests, UserProjects
+from webapp import Users, Projects, Skills, Roles, Industries, ProjectInterests, UserProjects
 from sqlalchemy import or_
 
 
@@ -66,40 +66,63 @@ print("Query - Pull all users from projects tables\n")
 project_rows = Projects.query.all()
 for project in project_rows:
     print(project.__repr__())
-    for idx, member in enumerate(project.project_members):
+    for idx, member in enumerate(project.members):
         print(f'\t i={idx}: {member.__repr__()})')
 print("-"*50)
 
-# Using backref "user_projects" (~invisble column on Users table)
+# Using backref "projects" (~invisble column on Users table)
 print("Bi-Direction: Pull all projects a given user is on\n")
 for user in user_rows:
     print(f"{user.__repr__()}")
-    for idx, project in enumerate(user.user_projects):
+    for idx, project in enumerate(user.get_projects):
         print(f'\t i={idx}: {project.__repr__()})')
 print("-"*100)
 
 
 # 5) Testing Relationships (mainlyt with Projects table)
 # #-----------------------------------------------------------------------
-print("for all fields and users tagged with interest\n")
-fields_rows = csField.query.all()
-for field in fields_rows:
-    print(f"{field.__repr__()}")
-    for idx, user in enumerate(field.users):
+# roles_rows
+print(f"\n{'-'*10} Roles - for all roles and users tagged {'-'*10}\n")
+roles_rows = Roles.query.all()
+print(roles_rows)
+for role in roles_rows:
+    print(f"{role.__repr__()}")
+    for idx, user in enumerate(role.users):
         print(f'\t i={idx}: {user.__repr__()})')
-print("-"*100)
 
-print("csField - for all field and all projects tagged with interest\n")
-for field in fields_rows:
-    print(field.__repr__())
-    for project in field.projects:
+print(f"\n{'-'*10} Roles - for all Roles and all projects tagged {'-'*10}\n")
+for role in roles_rows:
+    print(role.__repr__())
+    for project in role.projects:
         print(project.__repr__())
-print("-"*100)
+print("#"*100)
 
-print("ProjectInterests - for all interests and all projects tagged with interest\n")
+# Industries
+print(f"\n{'-'*10} Industries - for all industry and show users tagged {'-'*10}\n")
+Industries_rows = Industries.query.all()
+for industry in Industries_rows:
+    print(f"{industry.__repr__()}")
+    for idx, user in enumerate(industry.users):
+        print(f'\t i={idx}: {user.__repr__()})')
+
+print(f"\n{'-'*10} Industries - for all industry and show projects tagged {'-'*10}\n")
+for industry in Industries_rows:
+    print(f"{industry.__repr__()}")
+    for idx, project in enumerate(industry.projects):
+        print(f'\t i={idx}: {industry.__repr__()})')
+print("#"*100)
+
+# ProjectInterests
+print(f"\n{'-'*10} ProjectInterests - for all interests and all users tagged {'-'*10}\n")
 interests_rows = ProjectInterests.query.all()
 for interest in interests_rows:
     print(f"{interest.__repr__()}")
     for idx, user in enumerate(interest.users):
         print(f'\t i={idx}: {user.__repr__()})')
-print("-"*100)
+
+print(f"\n{'-'*10} ProjectInterests - for all interests and all projects tagged {'-'*10}\n")
+for interest in interests_rows:
+    print(f"{interest.__repr__()}")
+    for idx, user in enumerate(interest.projects):
+        print(f'\t i={idx}: {user.__repr__()})')
+print("#"*100)
