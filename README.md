@@ -9,21 +9,18 @@ This application supports the [Getting Started with Python on Heroku](https://de
 Make sure you have Python 3.9 [installed locally](https://docs.python-guide.org/starting/installation/). To push to Heroku, you'll need to install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli), as well as [Postgres](https://devcenter.heroku.com/articles/heroku-postgresql#local-setup).
 
 ```sh
-$ git clone https://github.com/heroku/python-getting-started.git
-$ cd python-getting-started
+$ git clone https://github.com/alyshapennypacker/CSPB-3308-Group-Project.git
+$ cd CSPB-3308-Group-Project
 
-$ python3 -m venv getting-started
 $ pip install -r requirements.txt
-
-$ createdb python_getting_started
 
 $ python manage.py migrate
 $ python manage.py collectstatic
+$ python manage.py runserver
 
-$ heroku local
 ```
 
-Your app should now be running on [localhost:5000](http://localhost:5000/).
+Your app should now be running on [localhost:8000](http://127.0.0.1:8000).
 
 ## Deploying to Heroku
 
