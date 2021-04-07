@@ -7,4 +7,3 @@ venv/
 scratch/src/
 __init__.py
 pylintrc
-run.sh
