@@ -18,7 +18,7 @@ print("1) Convert all rows in Users table, into a list of objects")
 print(f"user_rows type = {type(user_rows)}")
 for user in user_rows:
     print(f'\t row: {user}')
-
+print("-"*100)
 
 print("2) Find all python users (contain skill Python)\n")
 skill_python = Skills.query.filter_by(name='Python').first()
@@ -52,7 +52,7 @@ tableClasses = [Roles, Industries, ProjectInterests]
 
 
 def printTest(tableClasses):
-    print("Checking many to many relationships of the tables [Roles, Industries, ProjectInterests]\n")
+    print("4) Checking many to many relationships of the tables [Roles, Industries, ProjectInterests]\n")
     for table in tableClasses:
         # Iterate through each row in specified <table>
         table_rows = table.query.all()
