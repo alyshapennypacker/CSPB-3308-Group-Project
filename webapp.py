@@ -43,7 +43,7 @@ def bootstrap_data():
 @ app.route('/')
 @ app.route('/home')
 def home():
-    return render_template()
+    return "hello"
 
 
 # Association table: automatically updates based on Users and Projects tables (https://docs.sqlalchemy.org/en/14/orm/basic_relationships.html#many-to-many)
