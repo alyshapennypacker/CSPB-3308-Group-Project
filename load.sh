@@ -1,5 +1,5 @@
 #!bin/bash
-source venv/Scripts/activate
+#source venv/Scripts/activate
 
 export FLASK_APP=webapp.py
 export FLASK_ENV=development
