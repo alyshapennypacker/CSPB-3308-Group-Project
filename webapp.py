@@ -1,10 +1,10 @@
 from datetime import datetime
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-# from flask import render_template, url_for, flash, redirect
-# from forms import RegistrationForm, LoginForm
+from flask import render_template, url_for, flash, redirect
+from forms import RegistrationForm, LoginForm
 
-# from tests import bootstrap_tables
+from tests import bootstrap_tables
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
@@ -12,16 +12,16 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False  # Supress deprecation mess
 db = SQLAlchemy(app)
 
 
-# def create_app():
-#     app = Flask(__name__)
-#     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
-#     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False  # Supress deprecation message
-#     db.init_app(app)
+def create_app():
+    app = Flask(__name__)
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False  # Supress deprecation message
+    db.init_app(app)
 
-#     with app.app_context():
-#         # needed to make CLI commands work
-#         from . import commands
-#         return app
+    with app.app_context():
+        # needed to make CLI commands work
+        from . import commands
+        return app
 
 @app.cli.command("drop")
 def reset_db():
@@ -44,6 +44,31 @@ def bootstrap_data():
 @ app.route('/home')
 def home():
     return "hello"
+    #return render_template('home.html')
+
+# source: https://github.com/CoreyMSchafer/code_snippets/blob/master/Python/Flask_Blog/05-Package-Structure/flaskblog/routes.py
+@app.route("/register", methods=['GET', 'POST'])
+def register():
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        flash(f'Account created for {form.username.data}!', 'success')
+        return redirect(url_for('home'))
+    return render_template('register.html', title='Register', form=form)
+
+
+# source: https://github.com/CoreyMSchafer/code_snippets/blob/master/Python/Flask_Blog/05-Package-Structure/flaskblog/routes.py
+@app.route("/login", methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        if form.email.data == 'admin@blog.com' and form.password.data == 'password':
+            flash('You have been logged in!', 'success')
+            return redirect(url_for('home'))
+        else:
+            flash('Login Unsuccessful. Please check username and password', 'danger')
+    return render_template('login.html', title='Login', form=form)
+
+
 
 
 # Association table: automatically updates based on Users and Projects tables (https://docs.sqlalchemy.org/en/14/orm/basic_relationships.html#many-to-many)
