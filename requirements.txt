@@ -1,7 +1,9 @@
 appdirs==1.4.4
 astroid==2.5.1
 backcall==0.2.0
+bcrypt==3.2.0
 certifi==2020.12.5
+cffi==1.14.5
 click==7.1.2
 colorama==0.4.4
 cycler==0.10.0
@@ -13,6 +15,7 @@ dominate==2.6.0
 email-validator==1.1.2
 filelock==3.0.12
 Flask==1.1.2
+Flask-Bcrypt==0.7.1
 Flask-Bootstrap==3.3.7.1
 Flask-SQLAlchemy==2.5.1
 Flask-WTF==0.14.3
@@ -41,6 +44,7 @@ pickleshare==0.7.5
 Pillow==8.1.2
 pipenv==2020.11.15
 prompt-toolkit==3.0.17
+pycparser==2.20
 Pygments==2.8.1
 pylint==2.7.2
 pylint-flask-sqlalchemy==0.2.0
