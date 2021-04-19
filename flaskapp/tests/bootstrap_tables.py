@@ -1,5 +1,5 @@
-from webapp import db
-from webapp import Users, Projects, Skills, Roles, Industries, ProjectInterests, UserProjects
+from app import db
+from app import Users, Projects, Skills, Roles, Industries, ProjectInterests, UserProjects
 
 
 def bootstrap_helper(db):

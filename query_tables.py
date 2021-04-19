@@ -9,7 +9,7 @@ Goal: test the following cases with queries
 
 Note: children (Users) inherit attributes from parent(Skills) tables 
 """
-from webapp import db, Users, Projects, Skills, Roles, Industries, ProjectInterests, UserProjects
+from app import db, Users, Projects, Skills, Roles, Industries, ProjectInterests, UserProjects
 from sqlalchemy import or_
 print("Object Relational Mappers(SQLAlchemy) represent tables as a List of Objects\n")
 

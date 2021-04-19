@@ -1,5 +1,5 @@
 from datetime import datetime
-from webapp import db
+from flaskapp import db
 
 
 # Association table: automatically updates based on Users and Projects tables (https://docs.sqlalchemy.org/en/14/orm/basic_relationships.html#many-to-many)

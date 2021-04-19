@@ -1,4 +1,4 @@
-from .webapp import app, db
+from .app import app, db
 
 
 @app.cli.command("initdb")
