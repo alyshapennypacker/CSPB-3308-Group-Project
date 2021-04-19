@@ -1,25 +1,26 @@
 {
-  // Package Paths:
-  "python.pythonPath": "venv\\Scripts\\python.exe",
-  // custom defined modules and venv modules
+	// Package Paths:
+	"python.pythonPath": "venv\\Scripts\\python.exe",
 
-  //  Why does this not fix it????? ModuleNotFoundError: No module named 'tests.bootstrap_tables'
-  "python.analysis.extraPaths": [
-    "venv\\Lib\\python",
-    "tests\\bootstrap_tables"
-  ],
-  "python.autoComplete.extraPaths": ["venv\\Lib\\python", "tests"],
+	// Linting for flask-alchemy syntax
+	"python.linting.pylintArgs": [
+		"--load-plugins",
+		"pylint_flask_sqlalchemy",
+		"pylint_flask" // This package is optional
+	],
+	// Fixes syntax warning messages: "No module named ____ pylint_flaskpylint(fatal)"
+	"python.linting.pylintPath": "C:\\Users\\Daniel\\anaconda3\\Scripts\\pylint.exe",
+	"python.linting.pylintEnabled": true,
+	"python.linting.pycodestyleEnabled": false,
+	"python.linting.enabled": true,
 
-  // Linting:
-  //  You have to put it in this order to make it works
-  "python.linting.pylintArgs": [
-    "--load-plugins",
-    "pylint_flask_sqlalchemy",
-    "pylint_flask" // This package is optional
-  ],
-  // Fix error "No module named pylint_flaskpylint(fatal)"
-  "python.linting.pylintPath": "C:\\Users\\Daniel\\anaconda3\\Scripts\\pylint.exe",
-  "python.linting.pylintEnabled": true,
-  "python.linting.pycodestyleEnabled": false,
-  "python.linting.enabled": true
+	// custom defined modules and venv modules
+	//  Why does this not fix it????? ModuleNotFoundError: No module named 'tests.bootstrap_tables'
+	"python.analysis.extraPaths": [
+		"venv\\Lib\\python",
+		"tests\\bootstrap_tables"
+	],
+	"python.autoComplete.extraPaths": ["venv\\Lib\\python", "tests"],
+
+	"editor.formatOnSave": false
 }
