@@ -1,7 +1,7 @@
 from flask import render_template, url_for, flash, redirect
 from flaskapp import app
+from flaskapp.models import Users, Projects, Skills, Roles, Industries, ProjectInterests, UserProjects
 from flaskapp.forms import RegistrationForm, LoginForm
-from flaskapp.models import Users, Projects
 
 
 @ app.route('/')
