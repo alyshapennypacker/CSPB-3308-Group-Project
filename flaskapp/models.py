@@ -1,19 +1,18 @@
 from datetime import datetime
-from flaskapp import db
-# , login_manager
-# from flask_login import UserMixin
+from flaskapp import db, login_manager
+from flask_login import UserMixin
 
 
-# @login_manager.user_loader
-# def load_user(user_id):
-#     ''' Login manager extension '''
-#     return Users.query.get(int(user_id))
+@login_manager.user_loader
+def load_user(user_id):
+    ''' Login manager extension '''
+    return Users.query.get(int(user_id))
 
 
-# Association table: automatically updates based on Users and Projects tables (https://docs.sqlalchemy.org/en/14/orm/basic_relationships.html#many-to-many)
-# UserProjects = db.Table("userproject",
-#                         db.Column("user_id", db.Integer, db.ForeignKey("user.id"), primary_key=True),
-#                         db.Column("project_id", db.Integer, db.ForeignKey("project.id"), primary_key=True))
+# Association table: automatically updates based on Users and Projects tables(https: // docs.sqlalchemy.org/en/14/orm/basic_relationships.html  # many-to-many)
+UserProjects = db.Table("userproject",
+                        db.Column("user_id", db.Integer, db.ForeignKey("user.id"), primary_key=True),
+                        db.Column("project_id", db.Integer, db.ForeignKey("project.id"), primary_key=True))
 
 
 # class Users(db.Model, UserMixin):
@@ -131,7 +130,7 @@ class Industries(db.Model):
 
 class ProjectInterests(db.Model):
     ''' Interests Table:
-    A users general interests in Technologies, related to projects 
+    A users general interests in Technologies, related to projects
     (ex. Computer vision, Robotics, Cloud, etc.)
     '''
     __tablename__ = 'projectinterest'
