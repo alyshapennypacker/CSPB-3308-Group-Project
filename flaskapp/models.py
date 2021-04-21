@@ -1,22 +1,33 @@
 from datetime import datetime
 from flaskapp import db
+# , login_manager
+# from flask_login import UserMixin
+
+
+# @login_manager.user_loader
+# def load_user(user_id):
+#     ''' Login manager extension '''
+#     return Users.query.get(int(user_id))
 
 
 # Association table: automatically updates based on Users and Projects tables (https://docs.sqlalchemy.org/en/14/orm/basic_relationships.html#many-to-many)
-UserProjects = db.Table("userproject",
-                        db.Column("user_id", db.Integer, db.ForeignKey("user.id"), primary_key=True),
-                        db.Column("project_id", db.Integer, db.ForeignKey("project.id"), primary_key=True))
+# UserProjects = db.Table("userproject",
+#                         db.Column("user_id", db.Integer, db.ForeignKey("user.id"), primary_key=True),
+#                         db.Column("project_id", db.Integer, db.ForeignKey("project.id"), primary_key=True))
 
 
+# class Users(db.Model, UserMixin):
 class Users(db.Model):
     ''' Users Table:
     User profile information and Fact table (collection of many foreign keys)
+    UserMixin -> Adds in standard attributes/methods (ex. isAuthenticated, isActive, etc.)
     '''
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     first_name = db.Column(db.String(20), nullable=False)
     last_name = db.Column(db.String(20), nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
+    email = db.Column(db.String(50), unique=True, nullable=False)
+    password = db.Column(db.String(20), nullable=False)
     profile_image = db.Column(db.String(20), nullable=False, default="profile.jpg")
     date_joined = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     is_moderator = db.Column(db.Boolean, default=False, nullable=False)

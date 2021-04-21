@@ -5,8 +5,9 @@
 '''
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, validators
-from wtforms.validators import DataRequired, Length, Email, EqualTo, Regexp
+from wtforms.validators import DataRequired, Length, Email, EqualTo, Regexp, ValidationError
 import email_validator
+from flaskapp.models import Users
 
 # supported formats {first.last@Colorado.edu, identikey@colorad.edu}
 coloradoEmail_regex = "(?:\w+\.\w+|\w{4}\d{4})@colorado\.edu"
@@ -17,23 +18,25 @@ class RegistrationForm(FlaskForm):
     POSTS into Users table
     """
     username = StringField('Username',
-                           validators=[DataRequired(), Length(min=5, max=15)]
-                           )
+                           validators=[DataRequired(), Length(min=5, max=15)])
 
     # 2-layer regex email validation: standard via Email() + regexp @colorado.edu
     email = StringField('Email',
                         default="first.last@colorado.edu",
                         validators=[DataRequired(), Email(),
-                                    validators.Regexp(coloradoEmail_regex)]
-                        )
+                                    validators.Regexp(coloradoEmail_regex)])
 
     password = PasswordField('Password',
-                             validators=[DataRequired()]
-                             )
+                             validators=[DataRequired()])
     confirm_password = PasswordField('Confirm Password',
-                                     validators=[DataRequired(), EqualTo('password')]
-                                     )
+                                     validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Sign Up')
+
+    def validate_email(self, email):
+        ''' Validate field upon submitting form '''
+        user = Users.query.filter_by(email=email.data).first()
+        if user:
+            raise ValidationError('This email already exists, choose a different email')
 
 
 class LoginForm(FlaskForm):
@@ -42,11 +45,9 @@ class LoginForm(FlaskForm):
     """
     email = StringField('Email',
                         validators=[DataRequired(), Email(),
-                                    validators.Regexp(coloradoEmail_regex)]
-                        )
+                                    validators.Regexp(coloradoEmail_regex)])
     password = PasswordField('Password',
-                             validators=[DataRequired()]
-                             )
+                             validators=[DataRequired()])
     submit = SubmitField('Login')
     #
     remember = BooleanField('Remember Me')

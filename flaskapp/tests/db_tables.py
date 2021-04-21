@@ -12,17 +12,17 @@ def bootstrap_helper(db):
     db.session.commit()
 
     # ---------- Add Users ----------
-    user_1 = Users(first_name='daniel', last_name='bae', email="dan@gmail.com",
+    user_1 = Users(first_name='daniel', last_name='bae', email="dan@gmail.com", password="hashed_password",
                    skill_id_1=skill_python.id, skill_proficiency_1=4, skill_id_2=skill_cpp.id, skill_proficiency_2=3, skill_id_3=skill_3.id, skill_proficiency_3=2,
                    role_id=1,
                    industry_id=4,
                    )
-    user_2 = Users(first_name='simon', last_name='says', email="jeff@gmail.com",
+    user_2 = Users(first_name='simon', last_name='says', email="jeff@gmail.com", password="hashed_password",
                    skill_id_1=skill_cpp.id, skill_proficiency_1=3, skill_id_2=skill_python.id, skill_proficiency_2=4, skill_id_3=skill_4.id, skill_proficiency_3=2,
                    role_id=5,
                    industry_id=1,
                    )
-    user_3 = Users(first_name='jeff', last_name='williams', email="jw@gmail.com",
+    user_3 = Users(first_name='jeff', last_name='williams', email="jw@gmail.com", password="hashed_password",
                    skill_id_1=skill_4.id, skill_proficiency_1=3, skill_id_2=skill_3.id, skill_proficiency_2=4, skill_id_3=skill_cpp.id, skill_proficiency_3=2,
                    role_id=2,
                    industry_id=2,
