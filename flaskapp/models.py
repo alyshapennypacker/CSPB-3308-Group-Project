@@ -8,19 +8,16 @@ def load_user(user_id):
     ''' Login manager extension '''
     return Users.query.get(int(user_id))
 
-# User-Project association table
+# Association tables, related to Users and Projects tables
 UserProjects = db.Table("userproject",
                         db.Column("user_id", db.Integer, db.ForeignKey("user.id"), primary_key=True),
                         db.Column("project_id", db.Integer, db.ForeignKey("project.id"), primary_key=True))
-
-# User association tables
 UserLanguages = db.Table("userlanguage",
                         db.Column("user_id", db.Integer, db.ForeignKey("user.id"), primary_key=True),
                         db.Column("language_id", db.Integer, db.ForeignKey("language.id"), primary_key=True))
 UserCareers = db.Table("usercareer",
                         db.Column("user_id", db.Integer, db.ForeignKey("user.id"), primary_key=True),
                         db.Column("career_id", db.Integer, db.ForeignKey("career.id"), primary_key=True))
-# Project association tables
 ProjectLanguages = db.Table("projectlanguage",
                         db.Column("project_id", db.Integer, db.ForeignKey("project.id"), primary_key=True),
                         db.Column("language_id", db.Integer, db.ForeignKey("language.id"), primary_key=True))
