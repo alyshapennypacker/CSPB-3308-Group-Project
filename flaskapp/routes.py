@@ -7,7 +7,6 @@ from flaskapp.forms import RegistrationForm, LoginForm
 from flask_login import login_user, current_user, logout_user, login_required
 
 
-
 @app.route('/loginn', methods=['GET', 'POST'])
 def loginn():
     if request.method == 'POST':
@@ -19,8 +18,6 @@ def loginn():
 @app.route("/<usr_x>")
 def user(usr_x):
     return f"<h1>{usr_x}</h1>"
-    
-
 
 
 
@@ -33,7 +30,6 @@ def home():
 def about():
     return render_template('about.html')
 
-
 # source: https://github.com/CoreyMSchafer/code_snippets/blob/master/Python/Flask_Blog/05-Package-Structure/flaskblog/routes.py
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -43,22 +39,19 @@ def register():
     - POST new entry in Users table
     """
     form = RegistrationForm()
-    if form.validate_on_submit():
+    if request.method == 'GET':
+        return render_template('register.html', title='Register', form=form)
+    
+    elif request.method == 'POST':
+        if form.validate_on_submit():
+            hashed_password = bcrypter.generate_password_hash(form.password.data).decode('utf-8')
+            user = Users(password=hashed_password, email=form.email.data, first_name=form.firstname.data, last_name=form.lastname.data)
+            db.session.add(user)
+            db.session.commit()
+            flash(f'Account created for {form.firstname.data} {form.lastname.data}!', category='success')
+            return redirect(url_for('home'))
 
-        hashed_password = bcrypter.generate_password_hash(form.password.data).decode('utf-8')
-        user = Users(password=hashed_password, email=form.email.data,
-                     first_name='hashed user', last_name='hashed user',)
-                    #  skill_id_1=1, skill_proficiency_1=4, skill_id_2=2, skill_proficiency_2=3, skill_id_3=3, skill_proficiency_3=2,
-                    #  role_id=1, industry_id=4,
-                    #  )
-        db.session.add(user)
-        db.session.commit()
-
-        flash(f'Account created for {form.username.data}!', category='success')
-        return redirect(url_for('home'))
-
-    return render_template('register.html', title='Register', form=form)
-
+        
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -66,35 +59,54 @@ def login():
     If valid (email,password), then login current_user
     """
     # Re-direct back to home page if already logged in
-    if current_user.is_authenticated:
-        return redirect(url_for('home'))
-
     form = LoginForm()
-    if form.validate_on_submit():
-        form_email, form_password = form.email.data, form.password.data
-        form_user = Users.query.filter_by(email=form_email).first()
-        # If email exists and passwords matches up, then Login user and 
-        if form_user and bcrypter.check_password_hash(form_user.password,form_password):
-            login_user(form_user, remember=form.remember.data)
-            next_page = request.args.get('next')
-            return redirect(next_page) if next_page else redirect(url_for('home'))
-        else:
-            flash('Unable to login. Email and password combination does not match/exist', category='danger')
-    return render_template('login.html', title='Login', form=form)
-    
+    if current_user.is_authenticated: return redirect(url_for('home'))
 
+    if request.method == 'GET':
+        return render_template('login.html', title='Login', form=form)
+
+    elif request.method == 'POST':
+        if form.validate_on_submit():
+            form_email, form_password = form.email.data, form.password.data
+            form_user = Users.query.filter_by(email=form_email).first()
+            db_hashed_password = form_user.password
+            if form_user and bcrypter.check_password_hash(db_hashed_password,form_password):
+                login_user(form_user, remember=form.remember.data)
+                next_page = request.args.get('next')
+                return redirect(next_page) if next_page else redirect(url_for('home'))
+            else:
+                flash('Unable to login. Email and password combination does not match/exist', category='danger')
+        
 
 @app.route("/logout")
 def logout():
     logout_user()
     return redirect(url_for('home'))
-
-
+    
 @app.route("/account")
 @login_required # login_req Decorator requires login to access route
 def account():
     return render_template('account.html', title='Account')
 
+
+@app.route('/register/languages', methods=['GET', 'POST'])
+def register_languages():
+    return f"register languages here"
+
+@app.route('/register/careers', methods=['GET', 'POST'])
+def register_careers():
+    return f"register careers here"
+
+
 @app.route("/projects")
 def projects():
     return render_template('projects.html', title='Account')
+
+
+@app.route("/projects/create", methods=['GET', 'POST'])
+def projects_create():
+    return f"Create careers here"
+
+@app.route("/projects/<int:post_id>", methods=['GET', 'POST'])
+def projects_view(post_id):
+    return 'Post %d' % post_id

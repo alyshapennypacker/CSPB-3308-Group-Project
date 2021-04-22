@@ -8,6 +8,7 @@ def load_user(user_id):
     ''' Login manager extension '''
     return Users.query.get(int(user_id))
 
+
 # Association tables, related to Users and Projects tables
 UserProjects = db.Table("userproject",
                         db.Column("user_id", db.Integer, db.ForeignKey("user.id"), primary_key=True),
@@ -27,8 +28,7 @@ ProjectCareers = db.Table("projectcareer",
 
 
 class Users(db.Model, UserMixin):
-    ''' Users Table:
-    User profile information and Fact table (collection of many foreign keys)
+    ''' Users Table: User profile information 
     UserMixin -> Adds in standard attributes/methods (ex. isAuthenticated, isActive, etc.)
     '''
     __tablename__ = 'user'
@@ -40,7 +40,6 @@ class Users(db.Model, UserMixin):
     profile_image = db.Column(db.String(20), nullable=False, default="profile.jpg")
     date_joined = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     is_moderator = db.Column(db.Boolean, default=False, nullable=False)
-
     # relationships to Association table
     languages = db.relationship('Languages', secondary=UserLanguages, lazy='subquery', backref="get_users")
     careers = db.relationship('Careers', secondary=UserCareers, lazy='subquery', backref="get_users")
@@ -51,8 +50,8 @@ class Users(db.Model, UserMixin):
 
 
 class Projects(db.Model):
-    ''' Projects Table:
-    Group projects a user can post
+    ''' Projects Table: Group projects that users can either create or join
+
     '''
     __tablename__ = 'project'
     id = db.Column(db.Integer, primary_key=True, nullable=False)
@@ -61,20 +60,16 @@ class Projects(db.Model):
     creation_timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     start_date = db.Column(db.DateTime, nullable=True, default=datetime.utcnow)
     target_end_date = db.Column(db.DateTime, nullable=True, default=datetime.utcnow)
-
     # relationships to Association table
     owner_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False, default=1)
     owner = db.relationship("Users", foreign_keys=owner_id, backref="owned_projects", uselist=False)
     members = db.relationship('Users', secondary=UserProjects, lazy='subquery', backref="get_projects")
     languages = db.relationship('Languages', secondary=ProjectLanguages, lazy='subquery', backref="get_projects")
     careers = db.relationship('Careers', secondary=ProjectCareers, lazy='subquery', backref="get_projects")
-    
 
     def __repr__(self):
         return f"Project[ID:'{self.id}', Name:'{self.name}'] "
 
-# ----------------------------------------------------- 
-# updating table structure 
 
 class Languages(db.Model):
     ''' Languages Table:
