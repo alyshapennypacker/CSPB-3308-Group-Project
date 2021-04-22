@@ -2,7 +2,7 @@ from flaskapp import app, db
 from flaskapp.tests.db_tables import bootstrap_helper, query_helper
 
 
-@app.cli.command("db-init")
+@app.cli.command("db-clean")
 def reset_db():
     ''' Drops and Creates fresh database '''
     db.drop_all()
@@ -10,7 +10,7 @@ def reset_db():
     print("Initialized clean DB tables")
 
 
-@app.cli.command("db-boot")
+@app.cli.command("db-load")
 def bootstrap_data():
     ''' Populates database with some sample data '''
     db.drop_all()

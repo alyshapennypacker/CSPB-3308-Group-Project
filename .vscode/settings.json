@@ -22,5 +22,5 @@
 	],
 	"python.autoComplete.extraPaths": ["venv\\Lib\\python", "tests"],
 
-	// "editor.formatOnSave": false
+	"editor.formatOnSave": false
 }

@@ -7,3 +7,5 @@ venv/
 scratch/src/
 __init__.py
 pylintrc
+flaskapp/templates/base.html
+flaskapp/templates/account.html
