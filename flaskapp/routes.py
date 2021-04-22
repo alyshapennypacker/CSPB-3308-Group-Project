@@ -1,24 +1,8 @@
 from flask import render_template, url_for, flash, redirect, request
+from flask_login import login_user, current_user, logout_user, login_required
 from flaskapp import app, db, bcrypter
 from flaskapp.models import Users, Projects, Languages, Careers, UserProjects, UserLanguages, UserCareers,  ProjectLanguages, ProjectCareers
 from flaskapp.forms import RegistrationForm, LoginForm
-
-# flask_login - functions tp manage user sessions
-from flask_login import login_user, current_user, logout_user, login_required
-
-
-@app.route('/loginn', methods=['GET', 'POST'])
-def loginn():
-    if request.method == 'POST':
-        user = request.form['name']
-        return redirect(url_for("user", usr_x=user))
-    elif request.method == 'GET':
-        return render_template('loginn.html')
-    
-@app.route("/<usr_x>")
-def user(usr_x):
-    return f"<h1>{usr_x}</h1>"
-
 
 
 @app.route('/')
