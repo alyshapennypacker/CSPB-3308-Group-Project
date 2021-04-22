@@ -28,8 +28,9 @@ ProjectCareers = db.Table("projectcareer",
 
 
 class Users(db.Model, UserMixin):
-    ''' Users Table: User profile information 
-    UserMixin -> Adds in standard attributes/methods (ex. isAuthenticated, isActive, etc.)
+    ''' Users Table: 
+    User profile information 
+    UserMixin to inherit std methods (isAuthenticated, isActive, etc.)
     '''
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True, nullable=False)
@@ -50,8 +51,8 @@ class Users(db.Model, UserMixin):
 
 
 class Projects(db.Model):
-    ''' Projects Table: Group projects that users can either create or join
-
+    ''' Projects Table: 
+    Group projects that users can either create or join 
     '''
     __tablename__ = 'project'
     id = db.Column(db.Integer, primary_key=True, nullable=False)

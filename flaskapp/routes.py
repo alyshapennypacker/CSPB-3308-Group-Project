@@ -17,15 +17,16 @@ def about():
 # source: https://github.com/CoreyMSchafer/code_snippets/blob/master/Python/Flask_Blog/05-Package-Structure/flaskblog/routes.py
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    """
-    Validate Registration Form fields, then re-direct to home page
-    - GET register.html
-    - POST new entry in Users table
-    """
+    """ Registration Form fields, then If valid re-direct to home page 
+    
+    Validate:
+        - Form fields contstraints
+        - Database: Confirm user is not duplicate"""
+
     form = RegistrationForm()
     if request.method == 'GET':
         return render_template('register.html', title='Register', form=form)
-    
+
     elif request.method == 'POST':
         if form.validate_on_submit():
             hashed_password = bcrypter.generate_password_hash(form.password.data).decode('utf-8')
@@ -39,23 +40,25 @@ def register():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    """ When current_user submits Login Form
-    If valid (email,password), then login current_user
-    """
-    # Re-direct back to home page if already logged in
-    form = LoginForm()
-    if current_user.is_authenticated: return redirect(url_for('home'))
+    """ If valid, then login current_user
 
+    Validate:
+        - Form field contstraints
+        - Database: Confirm user has an account """
+
+    form = LoginForm()    
     if request.method == 'GET':
         return render_template('login.html', title='Login', form=form)
 
     elif request.method == 'POST':
+        if current_user.is_authenticated:  # if already logged in
+            return redirect(url_for('home'))
         if form.validate_on_submit():
             form_email, form_password = form.email.data, form.password.data
-            form_user = Users.query.filter_by(email=form_email).first()
-            db_hashed_password = form_user.password
-            if form_user and bcrypter.check_password_hash(db_hashed_password,form_password):
-                login_user(form_user, remember=form.remember.data)
+            db_user = Users.query.filter_by(email=form_email).first()
+            db_hashed_password = db_user.password
+            if db_user and bcrypter.check_password_hash(db_hashed_password,form_password):
+                login_user(db_user, remember=form.remember.data)
                 next_page = request.args.get('next')
                 return redirect(next_page) if next_page else redirect(url_for('home'))
             else:

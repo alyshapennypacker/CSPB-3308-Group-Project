@@ -13,11 +13,11 @@ from flaskapp.models import Users
 coloradoEmail_regex = "(?:\w+\.\w+|\w{4}\d{4})@colorado\.edu"
 
 class RegistrationForm(FlaskForm):
-    """ RegistrationForm's Fields """
+    """ RegistrationForm Fieldset """
     firstname = StringField('First Name',
-                           validators=[DataRequired(), Length(min=5, max=15)])
+                           validators=[DataRequired(), Length(min=1, max=15)])
     lastname = StringField('Last Name',
-                           validators=[DataRequired(), Length(min=5, max=15)])
+                           validators=[DataRequired(), Length(min=1, max=15)])
     email = StringField('Email', default="first.last@colorado.edu",
                         validators=[DataRequired(), Email(), validators.Regexp(coloradoEmail_regex)])
     password = PasswordField('Password',
@@ -34,7 +34,7 @@ class RegistrationForm(FlaskForm):
 
 
 class LoginForm(FlaskForm):
-    """ LoginForm's Fields """
+    """ LoginForm Fieldset """
     email = StringField('Email',
                         validators=[DataRequired(), Email(),
                                     validators.Regexp(coloradoEmail_regex)])
