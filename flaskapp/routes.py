@@ -17,7 +17,7 @@ def about():
 # source: https://github.com/CoreyMSchafer/code_snippets/blob/master/Python/Flask_Blog/05-Package-Structure/flaskblog/routes.py
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    """ Registration Form fields, then If valid re-direct to home page 
+    """ If valid upon submission then re-direct to home page 
     
     Validate:
         - Form fields contstraints
@@ -40,8 +40,8 @@ def register():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    """ If valid, then login current_user
-
+    """ If valid upon submission, then login current_user, otherwise provide feedback
+    
     Validate:
         - Form field contstraints
         - Database: Confirm user has an account """
