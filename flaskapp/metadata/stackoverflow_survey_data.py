@@ -78,6 +78,53 @@ industryNames = ['Software development - other', 'Information technology', 'Fina
                  'Internet', 'Education and training', 'Manufacturing', 'Cloud-based solutions or services', 'Government or public administration', 'Research - academic or scientific',
                  'Telecommunications', 'Transportation', 'Energy or utilities', 'Security', 'Marketing', 'Travel', 'Nonprofit', 'Real estate']
 
+
+# Technology Lanugages:
+# https://insights.stackoverflow.com/survey/2019#technology
+
+languages =[
+    ("JavaScript", 67.8),
+    ("HTML/CSS", 63.5),
+    ("SQL", 54.4),
+    ("Python",41.7),
+    ("Java",41.1),
+    ("Bash/Shell/PowerShell", 36.6),
+    ("C#",31.0),
+    ("PHP",26.4),
+    ("C++",23.5),
+    ("TypeScript",21.2),
+    ("C",20.6),
+    ("Ruby",8.4),
+    ("Go",8.2),
+    ("Assembly",6.7),
+    ("Swift",6.6),
+    ("Kotlin",6.4),
+    ("R",5.8),
+    ("VBA",5.5),
+    ("Objective-C",4.8),
+    ("Scala",3.8),
+    ("Rust",3.2),
+    ("Dart",1.9),
+    ("Elixir",1.4),
+    ("Clojure",1.4),
+    ("WebAssembly",1.2)
+]
+
+languageNames = [
+    'JavaScript', 'HTML/CSS', 'SQL', 'Python', 'Java', 'Bash/Shell/PowerShell', 'C#', 'PHP', 'C++', 
+    'TypeScript', 'C', 'Ruby', 'Go', 'Assembly', 'Swift', 'Kotlin', 'R', 'VBA', 'Objective-C', 'Scala', 
+    'Rust', 'Dart', 'Elixir', 'Clojure', 'WebAssembly']
+
+
+
+skill_level = {
+    1: "Never heard of it",
+    2: "Watched a few tutorials",
+    3: "Have used in personal projects",
+    4: "Have used in more advanced/complex projects",
+    5: "Develop with professionally",
+}
+
 '''
 Table: ProjectInterests
 

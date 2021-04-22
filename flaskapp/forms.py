@@ -1,0 +1,44 @@
+# source: https://github.com/CoreyMSchafer/code_snippets/tree/master/Python/Flask_Blog/03-Forms-and-Validation
+
+'''Define fieldset and validation logic '''
+
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, validators
+from wtforms.validators import DataRequired, Length, Email, EqualTo, Regexp, ValidationError
+import email_validator
+from flaskapp.models import Users
+
+# 2-layer regex email validation: standard via Email() + regexp @colorado.edu
+# supported formats {first.last@Colorado.edu, identikey@colorad.edu}
+coloradoEmail_regex = "(?:\w+\.\w+|\w{4}\d{4})@colorado\.edu"
+
+class RegistrationForm(FlaskForm):
+    """ RegistrationForm Fieldset """
+    firstname = StringField('First Name',
+                           validators=[DataRequired(), Length(min=1, max=15)])
+    lastname = StringField('Last Name',
+                           validators=[DataRequired(), Length(min=1, max=15)])
+    email = StringField('Email', default="first.last@colorado.edu",
+                        validators=[DataRequired(), Email(), validators.Regexp(coloradoEmail_regex)])
+    password = PasswordField('Password',
+                             validators=[DataRequired()])
+    confirm_password = PasswordField('Confirm Password',
+                                     validators=[DataRequired(), EqualTo('password')])
+    submit = SubmitField('Sign Up')
+
+    def validate_email(self, email):
+        ''' Validate field upon submitting form '''
+        user = Users.query.filter_by(email=email.data).first()
+        if user:
+            raise ValidationError('This email already exists, choose a different email')
+
+
+class LoginForm(FlaskForm):
+    """ LoginForm Fieldset """
+    email = StringField('Email',
+                        validators=[DataRequired(), Email(),
+                                    validators.Regexp(coloradoEmail_regex)])
+    password = PasswordField('Password',
+                             validators=[DataRequired()])
+    submit = SubmitField('Login')
+    remember = BooleanField('Remember Me')
