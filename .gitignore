@@ -1,8 +1,9 @@
+
 __pycache__/
 *.pyc
 *.pyo
 # Project specific 
 venv/
-# .vscode/
-scratch/src/
 pylintrc
+.vscode/
+.idea
