@@ -5,5 +5,4 @@ __pycache__/
 venv/
 # .vscode/
 scratch/src/
-__init__.py
 pylintrc
