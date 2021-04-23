@@ -57,10 +57,12 @@ def login():
             form_email, form_password = form.email.data, form.password.data
             db_user = Users.query.filter_by(email=form_email).first()
             db_hashed_password = db_user.password
+
             if db_user and bcrypter.check_password_hash(db_hashed_password,form_password):
                 login_user(db_user, remember=form.remember.data)
                 next_page = request.args.get('next')
                 return redirect(next_page) if next_page else redirect(url_for('home'))
+                
             else:
                 flash('Unable to login. Email and password combination does not match/exist', category='danger')
         
