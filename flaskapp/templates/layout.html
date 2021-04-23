@@ -38,7 +38,7 @@
                     <!-- Navbar Right Side: Updated per session status -->
                     <div class="navbar-nav">
                         {% if current_user.is_authenticated %}
-                        <a class="nav-item nav-link" href="{{ url_for('projects') }}">My Projects</a>
+                            <a class="nav-item nav-link" href="{{ url_for('new_project') }}">Create New Project</a>
                             <a class="nav-item nav-link" href="{{ url_for('account') }}">Account</a>
                             <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
                         {% else %}

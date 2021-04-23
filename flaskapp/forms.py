@@ -5,7 +5,7 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, validators
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, validators, TextAreaField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, Regexp, ValidationError
 import email_validator
 from flaskapp.models import Users
@@ -64,3 +64,10 @@ class UpdateAccountForm(FlaskForm):
             user = Users.query.filter_by(email=email.data).first()
             if user:
                 raise ValidationError('This email already exists, choose a different email')
+
+
+class ProjectForm(FlaskForm):
+    """ Project creation """
+    title = StringField('Title', validators=[DataRequired()])
+    content = TextAreaField('Content', validators=[DataRequired()])
+    submit = SubmitField('Post')

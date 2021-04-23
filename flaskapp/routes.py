@@ -2,17 +2,18 @@ import secrets
 import os
 from PIL import Image
 
-from flask import render_template, url_for, flash, redirect, request
+from flask import render_template, url_for, flash, redirect, request, abort
 from flask_login import login_user, current_user, logout_user, login_required
 from flaskapp import app, db, bcrypter
 from flaskapp.models import Users, Projects, Languages, Careers, UserProjects, UserLanguages, UserCareers,  ProjectLanguages, ProjectCareers
-from flaskapp.forms import RegistrationForm, LoginForm, UpdateAccountForm
+from flaskapp.forms import RegistrationForm, LoginForm, UpdateAccountForm, ProjectForm
 
 
 @app.route('/')
 @app.route('/home')
 def home():
-    return render_template('home.html')
+    projects = Projects.query.all()
+    return render_template('home.html', projects=projects)
 
 @app.route('/about')
 def about():
@@ -104,12 +105,10 @@ def save_picture_helper(form_picture):
 @login_required
 def account():
     ''' User account route '''
+
     form = UpdateAccountForm()
-    
-    # Updating profile informaiton 
-    if form.validate_on_submit():
-        # Save and Set profile picture
-        if form.picture.data:
+    if form.validate_on_submit() and request.method == 'POST':
+        if form.picture.data: # Save and Set profile picture
             picture_file = save_picture_helper(form.picture.data)
             current_user.profile_image = picture_file
 
@@ -129,24 +128,63 @@ def account():
     return render_template('account.html', title='Account',image_file=image_file, form=form)
 
 
-@app.route('/register/languages', methods=['GET', 'POST'])
-def register_languages():
-    return f"register languages here"
+@app.route("/projects/new", methods=['GET', 'POST'])
+@login_required
+def new_project():
+    form = ProjectForm()
+    if form.validate_on_submit() and request.method == 'POST':
+        new_project = Projects(name=form.title.data, desc=form.content.data, owner=current_user)
+        db.session.add(new_project)
+        db.session.commit()
+        flash("Your post has been created successfully!", "success")
+        return redirect(url_for('home'))
+    return render_template('create_project.html', title='New Post', form=form)
 
-@app.route('/register/careers', methods=['GET', 'POST'])
-def register_careers():
-    return f"register careers here"
+
+@app.route("/projects/<int:project_id>")
+def project(project_id):
+    single_project = Projects.query.get_or_404(project_id)
+    return render_template('project.html', title=single_project.name, single_project=single_project)
 
 
-@app.route("/projects")
-def projects():
-    return render_template('projects.html', title='Account')
+@app.route("/projects/<int:project_id>/update", methods=['GET', 'POST'])
+@login_required
+def update_project(project_id):
+    ''' GETS/POSTS form for current user to update their project
+    current user muster be owner of the posted project, otherwise 403 '''
+    single_project = Projects.query.get_or_404(project_id)
+    if single_project.owner != current_user:
+        abort(403)
 
+    form = ProjectForm()
+    if form.validate_on_submit() and request.method == 'POST':
+        single_project.name = form.title.data
+        single_project.desc = form.content.data
+        db.session.commit()
+        flash('Your post has been updated!', 'success')
+        return redirect(url_for('project', project_id=single_project.id))
 
-@app.route("/projects/create", methods=['GET', 'POST'])
-def projects_create():
-    return f"Create careers here"
+    elif request.method == 'GET':
+        form.title.data = single_project.name
+        form.content.data = single_project.desc
 
-@app.route("/projects/<int:post_id>", methods=['GET', 'POST'])
-def projects_view(post_id):
-    return 'Post %d' % post_id
+    return render_template('create_project.html', title='Update Project', form=form, legend='Update Project')
+
+@app.route("/projects/<int:project_id>/delete", methods=['POST'])
+@login_required
+def delete_project(project_id):
+    single_project = Projects.query.get_or_404(project_id)
+    if single_project.owner != current_user:
+        abort(403)
+    db.session.delete(single_project)
+    db.session.commit()
+    flash('Your project has been deleted!', 'success')
+    return redirect(url_for('home'))
+
+# @app.route('/register/languages', methods=['GET', 'POST'])
+# def register_languages():
+#     return f"register languages here"
+
+# @app.route('/register/careers', methods=['GET', 'POST'])
+# def register_careers():
+#     return f"register careers here"
