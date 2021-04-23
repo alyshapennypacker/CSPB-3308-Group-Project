@@ -55,7 +55,7 @@
     <main role="main" class="container">
       <div class="row">
         <div class="col-md-8">
-         <!-- Display flashed messages -->
+         <!-- Flashed messages: Displayed at the top of content containers -->
           {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
               {% for category, message in messages %}
@@ -67,6 +67,7 @@
           {% endwith %}
           
           {% block content %}
+            <!-- <content goes here>  -->
           {% endblock %}
         </div>
       </div>

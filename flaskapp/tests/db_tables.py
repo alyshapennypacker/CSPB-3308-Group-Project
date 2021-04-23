@@ -1,11 +1,12 @@
 from sqlalchemy.sql.expression import desc
+from flaskapp import bcrypter
 from flaskapp.models import Users, Projects, Languages, Careers, UserProjects, UserLanguages, UserCareers, ProjectLanguages, ProjectCareers
 from sqlalchemy import or_
 
 def bootstrap_helper(db):
-    ''' Actually populates database with sample data '''
+    ''' Populates database with sample data '''
 
-    # ---------- Add `Role`s ----------
+    # ---------- Add Careers ----------
     CareersNames = ['Developer, back-end', 'Developer, full-stack', 'Developer, front-end', 'Developer, desktop or enterprise applications', 'Developer, mobile',
                  'DevOps specialist', 'Database administrator', 'Designer', 'System administrator', 'Developer, embedded applications or devices', 'Data or business analyst',
                  'Data scientist or machine learning specialist', 'Developer, QA or test', 'Engineer, data', 'Academic researcher', 'Educator', 'Developer, game or graphics',
@@ -31,9 +32,10 @@ def bootstrap_helper(db):
     language_kotlin = Languages.query.filter_by(name="Kotlin").first()
     
     # ---------- Add Users ----------
-    user_1 = Users(first_name='daniel', last_name='bae', email="dan@gmail.com", password="hashed_password")
-    user_2 = Users(first_name='simon', last_name='says', email="jeff@gmail.com", password="hashed_password")
-    user_3 = Users(first_name='jeff', last_name='williams', email="jw@gmail.com", password="hashed_password")
+    hashed_password = bcrypter.generate_password_hash("password").decode('utf-8')
+    user_1 = Users(first_name='daniel', last_name='bae', email="user1111@colorado.edu", password=hashed_password)
+    user_2 = Users(first_name='simon', last_name='says', email="user2222@colorado.edu", password=hashed_password)
+    user_3 = Users(first_name='jeff', last_name='williams', email="user3333@colorado.edu", password=hashed_password)
     db.session.add_all([user_1, user_2, user_3])
     db.session.commit()
 
@@ -41,11 +43,11 @@ def bootstrap_helper(db):
     user_2_query = Users.query.filter_by(first_name="simon").first()
     user_3_query = Users.query.filter_by(first_name="jeff").first()
 
-    # ---- Add User's Languages w/ pythonic lists functionality ----
+    # ---- Adding Languages to a User w/ pythonic lists functionality ----
     user_1.languages.extend((language_python,language_cpp,language_js))
     user_2.languages.extend((language_python,language_kotlin))
     user_3.languages.extend((language_python,language_cpp,language_js,language_kotlin))
-    # ---- Add Users's Careers w/ pythonic lists functionality ----
+    # ---- Adding Careers to User w/ pythonic lists functionality ----
     user_1.careers.extend((career_backend,career_fullstack,career_design))
     user_2.careers.extend((career_backend,career_fullstack))
     user_3.careers.extend((career_backend,career_design))
@@ -61,13 +63,13 @@ def bootstrap_helper(db):
     db.session.add_all([project_1, project_2])
     db.session.commit()
 
-    # ---- Adding Project's Members w/ pythonic lists functionality ----
+    # ---- Adding Members to Project w/ pythonic lists functionality ----
     project_1.members.extend((user_1, user_2, user_3))
     project_2.members.append(user_3)
-    # ---- Adding Project's Languages w/ pythonic lists functionality ----
+    # ---- Adding Languages to a Project w/ pythonic lists functionality ----
     project_1.languages.extend((language_python,language_cpp,language_js))
     project_2.languages.extend((language_python,language_kotlin))
-    # ---- Adding Project's Careers w/ pythonic lists functionality ----
+    # ---- Adding Careers to a Project  w/ pythonic lists functionality ----
     project_1.careers.extend((career_backend,career_fullstack,career_design))
     project_2.careers.extend((career_backend,career_fullstack))
 
@@ -75,6 +77,11 @@ def bootstrap_helper(db):
 
 
 def query_helper(db):
+    ''' This function serves 2 purposes:
+    - Demonstrates how to query SQL Alchemy tables 
+    - Place holder for unit-testing table
+    '''
+
     print("Object Relational Mappers(SQLAlchemy) represent tables as a List of Objects\n")
 
     user_rows = Users.query.all()

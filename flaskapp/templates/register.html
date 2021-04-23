@@ -1,6 +1,7 @@
 <!--source: https://github.com/CoreyMSchafer/code_snippets/blob/master/Python/Flask_Blog/03-Forms-and-Validation/templates/register.html -->
-{% extends "layout.html" %} {% block content %}
+{% extends "layout.html" %} 
 
+{% block content %}
 <!-- Registration POSTS entry to Users table, in current location (action="")  -->
 <div class="content-section">
 	<form method="POST" action="">
@@ -18,7 +19,7 @@
                     {{form.firstname(class="form-control form-control-lg is-invalid") }}
 				<div class="invalid-feedback">
 					{% for error in form.firstname.errors %}
-					<span>{{ error }}</span>
+					    <span>{{ error }}</span>
 					{% endfor %}
 				</div>
 				{% else %} 
@@ -34,7 +35,7 @@
                     {{form.lastname(class="form-control form-control-lg is-invalid") }}
 				<div class="invalid-feedback">
 					{% for error in form.lastname.errors %}
-					<span>{{ error }}</span>
+					    <span>{{ error }}</span>
 					{% endfor %}
 				</div>
 				{% else %} 
@@ -49,7 +50,7 @@
                 {{ form.email(class="form-control form-control-lg is-invalid") }}
 				<div class="invalid-feedback">
 					{% for error in form.email.errors %}
-					<span>{{ error }}</span>
+					    <span>{{ error }}</span>
 					{% endfor %}
 				</div>
 				{% else %} 
@@ -64,7 +65,7 @@
                 {{ form.password(class="form-control form-control-lg is-invalid") }}
 				<div class="invalid-feedback">
 					{% for error in form.password.errors %}
-					<span>{{ error }}</span>
+					    <span>{{ error }}</span>
 					{% endfor %}
 				</div>
 				{% else %} 
@@ -79,7 +80,7 @@
                     {{ form.confirm_password(class="form-control form-control-lg is-invalid")}}
 				<div class="invalid-feedback">
 					{% for error in form.confirm_password.errors %}
-					<span>{{ error }}</span>
+					    <span>{{ error }}</span>
 					{% endfor %}
 				</div>
 				{% else %} 
