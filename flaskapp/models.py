@@ -41,7 +41,7 @@ class Users(db.Model, UserMixin):
     last_name = db.Column(db.String(20), nullable=False)
     email = db.Column(db.String(50), unique=True, nullable=False)
     password = db.Column(db.String(20), nullable=False)
-    profile_image = db.Column(db.String(20), nullable=False, default="default_yoda.jpg")
+    profile_image = db.Column(db.String(20), nullable=False, default="headshot-anonymous.jpg")
     date_joined = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     is_moderator = db.Column(db.Boolean, default=False, nullable=False)
     # relationships to Association table

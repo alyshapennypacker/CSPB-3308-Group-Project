@@ -33,9 +33,9 @@ def bootstrap_helper(db):
     
     # ---------- Add Users ----------
     hashed_password = bcrypter.generate_password_hash("password").decode('utf-8')
-    user_1 = Users(first_name='daniel', last_name='bae', email="user1111@colorado.edu", password=hashed_password)
-    user_2 = Users(first_name='simon', last_name='says', email="user2222@colorado.edu", password=hashed_password)
-    user_3 = Users(first_name='jeff', last_name='williams', email="user3333@colorado.edu", password=hashed_password)
+    user_1 = Users(first_name='daniel', last_name='bae', email="user1111@colorado.edu", password=hashed_password, profile_image="default_yoda.jpg")
+    user_2 = Users(first_name='simon', last_name='says', email="user2222@colorado.edu", password=hashed_password, profile_image="default_turle.jpg")
+    user_3 = Users(first_name='jeff', last_name='williams', email="user3333@colorado.edu", password=hashed_password, profile_image="Colorado_Buffaloes_logo.png")
     db.session.add_all([user_1, user_2, user_3])
     db.session.commit()
 
@@ -59,8 +59,18 @@ def bootstrap_helper(db):
     project_1 = Projects(name="Lets make a React App!!!", desc="Welcome all levels of exp, just looking to get expossure to react",
                          owner_id=user_2.id)
     project_2 = Projects(name="Anyone looking to get started with mobile development?", desc="Currently interested in Koitlin dev, but open to other stacks as well!",
+                         owner_id=user_3.id)
+    project_3 = Projects(name="Project 3", desc="Description",
                          owner_id=user_2.id)
-    db.session.add_all([project_1, project_2])
+    project_4 = Projects(name="Project 4", desc="Description",
+                         owner_id=user_2.id)
+    project_5 = Projects(name="Project 5", desc="Description",
+                         owner_id=user_3.id)
+    project_6 = Projects(name="Project 6", desc="Description",
+                         owner_id=user_3.id)
+    project_7 = Projects(name="Project 7", desc="Description",
+                         owner_id=user_3.id)
+    db.session.add_all([project_1, project_2,project_3,project_4,project_5,project_6,project_7])
     db.session.commit()
 
     # ---- Adding Members to Project w/ pythonic lists functionality ----

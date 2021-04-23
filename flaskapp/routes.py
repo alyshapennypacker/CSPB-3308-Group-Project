@@ -180,11 +180,3 @@ def delete_project(project_id):
     db.session.commit()
     flash('Your project has been deleted!', 'success')
     return redirect(url_for('home'))
-
-# @app.route('/register/languages', methods=['GET', 'POST'])
-# def register_languages():
-#     return f"register languages here"
-
-# @app.route('/register/careers', methods=['GET', 'POST'])
-# def register_careers():
-#     return f"register careers here"
