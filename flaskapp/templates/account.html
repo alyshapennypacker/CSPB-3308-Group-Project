@@ -1,15 +1,13 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h1>{{ current_user.firstName }}</h1>
-    <h1> Hello {{ current_user.first_name }}!  </h1>
-
+<body class=dark>
     <div class="content-section">
         <!-- Media Header -->
         <div class="media">
           <img class="rounded-circle account-img" src="{{ image_file }}">
           <div class="media-body">
-            <h2 class="account-heading">Username</h2>
-            <p class="text-secondary">username@email.com</p>
+            <h3 class="account-heading">{{current_user.first_name}} {{current_user.last_name}}</h3>
+            <p class="text-secondary">{{current_user.email}}</p>
           </div>
         </div>
         
@@ -83,7 +81,7 @@
     
             <!-- Submit button  -->
             <div class="form-group">
-                {{ form.submit(class="btn btn-outline-info") }}
+                {{ form.submit(class="btn btn-primary") }}
             </div>
         </form>
         
@@ -91,4 +89,5 @@
 
         
       </div>
+</body>
 {% endblock content %}

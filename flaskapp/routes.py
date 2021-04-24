@@ -12,7 +12,10 @@ from flaskapp.forms import RegistrationForm, LoginForm, UpdateAccountForm, Proje
 @app.route('/')
 @app.route('/home')
 def home():
-    projects = Projects.query.all()
+    projects = Projects.query.all() 
+    projects = sorted(projects, key= lambda x: x.creation_timestamp, reverse=True)
+    for project in projects:
+        print(project.creation_timestamp)
     return render_template('home.html', projects=projects)
 
 @app.route('/about')
@@ -37,8 +40,6 @@ def register():
         flash(f'Account created for {form.firstname.data} {form.lastname.data}!', category='success')
         return redirect(url_for('home'))
     
-    elif request.method == 'GET':
-        form.email.data = "first.last@colorado.edu"
     return render_template('register.html', title='Register', form=form)
 
         
@@ -68,8 +69,6 @@ def login():
         else:
             flash('Unable to login. Email and password combination does not match/exist', category='danger')
 
-    elif request.method == 'GET':
-        form.email.data = "first.last@colorado.edu"   
     return render_template('login.html', title='Login', form=form)
 
 @app.route("/logout")
@@ -136,9 +135,23 @@ def new_project():
         new_project = Projects(name=form.title.data, desc=form.content.data, owner=current_user)
         db.session.add(new_project)
         db.session.commit()
+
+        # Adding Multiple languages to a project
+        for language in form.languages.data:
+            project_language = Languages.query.filter_by(id=language).first()       
+            new_project.languages.append(project_language)       
+        
+        # Adding Multiple Careers to a project
+        for career in form.careers_field.data:
+            project_career = Careers.query.filter_by(id=career).first()       
+            new_project.careers.append(project_career)      
+
+
+        db.session.commit() 
+        
         flash("Your post has been created successfully!", "success")
         return redirect(url_for('home'))
-    return render_template('create_project.html', title='New Post', form=form)
+    return render_template('create_project.html', legend='New Project', form=form)
 
 
 @app.route("/projects/<int:project_id>")
@@ -150,7 +163,7 @@ def project(project_id):
 @app.route("/projects/<int:project_id>/update", methods=['GET', 'POST'])
 @login_required
 def update_project(project_id):
-    ''' GETS/POSTS form for current user to update their project
+    ''' Form for current user to update their project
     current user muster be owner of the posted project, otherwise 403 '''
     single_project = Projects.query.get_or_404(project_id)
     if single_project.owner != current_user:
@@ -160,7 +173,22 @@ def update_project(project_id):
     if form.validate_on_submit() and request.method == 'POST':
         single_project.name = form.title.data
         single_project.desc = form.content.data
+        
+        # Reset exising skills, so User inputs overrides existing values
+        single_project.languages = []
+        single_project.careers = []
         db.session.commit()
+
+        for language in form.languages.data:
+            project_language = Languages.query.filter_by(id=language).first()
+            if project_language not in single_project.languages:
+                single_project.languages.append(project_language)
+
+        for career in form.careers_field.data:
+            project_career = Careers.query.filter_by(id=career).first()       
+            single_project.careers.append(project_career)      
+        db.session.commit()
+        
         flash('Your post has been updated!', 'success')
         return redirect(url_for('project', project_id=single_project.id))
 
