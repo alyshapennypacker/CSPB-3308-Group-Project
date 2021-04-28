@@ -58,24 +58,23 @@ def bootstrap_helper(db):
     # ---------- Add Projects ----------
     project_1 = Projects(name="Lets make a React App!!!", desc="Welcome all levels of exp, just looking to get expossure to react",
                          owner_id=user_2.id)
-    project_2 = Projects(name="Anyone looking to get started with mobile development?", desc="Currently interested in Koitlin dev, but open to other stacks as well!",
+    project_2 = Projects(name="Anyone Looking for Leetcode group or buddy?", desc="Starting to prep for techincal whiteboarding interviews and it'd be great to practice with others!",
                          owner_id=user_3.id)
-    project_3 = Projects(name="Project 3", desc="Description",
+    project_3 = Projects(name="Anyone else trying to started AWS?", desc="Welcome all levels of exp of any cloud dev services ",
                          owner_id=user_2.id)
-    project_4 = Projects(name="Project 4", desc="Description",
+    project_4 = Projects(name="anyone wanna do a Kaggle project?", desc="Just getting started with Machine learning and ....",
+                         owner_id=user_3.id)
+    project_5 = Projects(name="Lets build a REST API!!", desc="Looking to build my knowledge in microservices with others",
                          owner_id=user_2.id)
-    project_5 = Projects(name="Project 5", desc="Description",
-                         owner_id=user_3.id)
-    project_6 = Projects(name="Project 6", desc="Description",
-                         owner_id=user_3.id)
-    project_7 = Projects(name="Project 7", desc="Description",
-                         owner_id=user_3.id)
-    db.session.add_all([project_1, project_2,project_3,project_4,project_5,project_6,project_7])
+    db.session.add_all([project_1, project_2,project_3,project_4,project_5])
     db.session.commit()
 
     # ---- Adding Members to Project w/ pythonic lists functionality ----
-    project_1.members.extend((user_1, user_2, user_3))
+    project_1.members.extend((user_2, user_1, user_3))
     project_2.members.append(user_3)
+    project_3.members.append(user_2)
+    project_4.members.append(user_3)
+    project_5.members.append(user_2)
     # ---- Adding Languages to a Project w/ pythonic lists functionality ----
     project_1.languages.extend((language_python,language_cpp,language_js))
     project_2.languages.extend((language_python,language_kotlin))
@@ -84,6 +83,11 @@ def bootstrap_helper(db):
     project_2.careers.extend((career_backend,career_fullstack))
 
     db.session.commit()
+    
+
+    project_2.careers.remove(career_fullstack)
+    db.session.commit()
+
 
 
 def query_helper(db):
@@ -101,14 +105,14 @@ def query_helper(db):
         print(f'\t row: {user}')
     print("-"*100)
 
-    print("2) Find all python users (contain skill Python)\n")
-    language_python = Languages.query.filter_by(name='Python').first()
-    python_users = Users.query.filter(or_(Users.skill_id_1 == language_python.id,
-                                        Users.skill_id_2 == language_python.id,
-                                        Users.skill_id_3 == language_python.id))
-    for person in python_users:
-        print(f"python users:{person.first_name} {person.last_name}")
-    print("-"*100)
+    # print("2) Find all python users (contain skill Python)\n")
+    # language_python = Languages.query.filter_by(name='Python').first()
+    # python_users = Users.query.filter(or_(Users.skill_id_1 == language_python.id,
+    #                                     Users.skill_id_2 == language_python.id,
+    #                                     Users.skill_id_3 == language_python.id))
+    # for person in python_users:
+    #     print(f"python users:{person.first_name} {person.last_name}")
+    # print("-"*100)
 
     print("3) Testing Many to Many relationship\n")
     print("Pull all users a given project")
@@ -141,9 +145,9 @@ def query_helper(db):
             for object_instance in table_rows:
                 # object.(user/project) contains all the f-keys in Users and Projects
                 print(object_instance)
-                for idx, user in enumerate(object_instance.users):  # Print each User tagged
+                for idx, user in enumerate(object_instance.get_users):  # Print each User tagged
                     print(f'\t i={idx}: {user})')
-                for idx, project in enumerate(object_instance.projects):  # Print each Project tagged
+                for idx, project in enumerate(object_instance.get_projects):  # Print each Project tagged
                     print(f'\t i={idx}: {project})')
 
 

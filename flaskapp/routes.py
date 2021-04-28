@@ -1,3 +1,4 @@
+# Make a note about (skelaton)
 # source: https://github.com/CoreyMSchafer/code_snippets/blob/master/Python/Flask_Blog
 
 import secrets
@@ -147,7 +148,7 @@ def new_project():
             project_career = Careers.query.filter_by(id=career).first()       
             new_project.careers.append(project_career)      
 
-
+        new_project.members.append(current_user)      
         db.session.commit() 
         
         flash("Your post has been created successfully!", "success")
@@ -209,3 +210,23 @@ def delete_project(project_id):
     db.session.commit()
     flash('Your project has been deleted!', 'success')
     return redirect(url_for('home'))
+
+
+@app.route("/projects/<int:project_id>/join", methods=['GET','POST'])
+@login_required
+def join_project(project_id):
+    current_project = Projects.query.get_or_404(project_id)
+    current_project.members.append(current_user)
+    db.session.commit()
+    flash('You succesfully joined the project!', 'success')
+    return redirect(url_for('project', project_id=project_id))
+
+
+@app.route("/projects/<int:project_id>/leave", methods=['GET','POST'])
+@login_required
+def leave_project(project_id):
+    current_project = Projects.query.get_or_404(project_id)
+    current_project.members.remove(current_user)
+    db.session.commit()
+    flash('You succesfully left the project!', 'success')
+    return redirect(url_for('project', project_id=project_id))
