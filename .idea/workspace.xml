@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="55ebf77c-5d23-42d2-899d-01c0025d04cd" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/working-flask-source-code" beforeDir="false" afterPath="$PROJECT_DIR$/working-flask-source-code" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/working-flask-source-code" />
+  </component>
+  <component name="JupyterTrust" id="8b7ae658-a3dc-4bb6-bb56-e0ea4890fcdd" />
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="1" />
+  </component>
+  <component name="ProjectId" id="1pZovPTDkF8IqHcXY2fc3stxcG6" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/hello/static" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CSPB-3308-Group-Project" type="PythonConfigurationType" factoryName="Python">
+      <module name="CSPB-3308-Group-Project" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/webapp.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="55ebf77c-5d23-42d2-899d-01c0025d04cd" name="Default Changelist" comment="" />
+      <created>1615400204057</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1615400204057</updated>
+      <workItem from="1615400205412" duration="280000" />
+      <workItem from="1616520760926" duration="1069000" />
+      <workItem from="1616521843719" duration="20278000" />
+      <workItem from="1617252801857" duration="1758000" />
+      <workItem from="1617255277207" duration="747000" />
+      <workItem from="1617256108102" duration="724000" />
+      <workItem from="1617257070261" duration="4000" />
+      <workItem from="1617257441927" duration="195000" />
+      <workItem from="1617258722678" duration="3162000" />
+      <workItem from="1617261894313" duration="632000" />
+      <workItem from="1617262529327" duration="525000" />
+      <workItem from="1617263057385" duration="3621000" />
+      <workItem from="1617269091259" duration="3324000" />
+      <workItem from="1617272457116" duration="6651000" />
+      <workItem from="1617674837612" duration="139000" />
+      <workItem from="1617675645816" duration="501000" />
+      <workItem from="1617684387926" duration="1247000" />
+      <workItem from="1617685947115" duration="203000" />
+      <workItem from="1617686279245" duration="13591000" />
+      <workItem from="1617730294956" duration="59000" />
+      <workItem from="1617730388655" duration="223000" />
+      <workItem from="1617731273256" duration="2733000" />
+      <workItem from="1617740155355" duration="1162000" />
+      <workItem from="1617741592899" duration="2987000" />
+      <workItem from="1617750989006" duration="687000" />
+      <workItem from="1617751916615" duration="19257000" />
+      <workItem from="1618880414115" duration="98000" />
+      <workItem from="1618942621997" duration="786000" />
+      <workItem from="1618943633926" duration="3253000" />
+      <workItem from="1618972438751" duration="3728000" />
+      <workItem from="1618982889572" duration="1366000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="560" y="207" key="#Inspections" timestamp="1617272474315">
+      <screen x="0" y="25" width="1680" height="967" />
+    </state>
+    <state x="560" y="207" key="#Inspections/0.25.1680.967@0.25.1680.967" timestamp="1617272474315" />
+    <state x="414" y="103" key="#Project_Structure" timestamp="1617271789473">
+      <screen x="0" y="25" width="1680" height="967" />
+    </state>
+    <state x="414" y="103" key="#Project_Structure/0.25.1680.967@0.25.1680.967" timestamp="1617271789473" />
+    <state x="532" y="215" key="RollbackChangesDialog" timestamp="1618981305884">
+      <screen x="0" y="25" width="1680" height="959" />
+    </state>
+    <state x="532" y="215" key="RollbackChangesDialog/0.25.1680.958@0.25.1680.958" timestamp="1618980892724" />
+    <state x="532" y="215" key="RollbackChangesDialog/0.25.1680.959@0.25.1680.959" timestamp="1618981305884" />
+    <state x="409" y="166" key="SettingsEditor" timestamp="1616521106021">
+      <screen x="0" y="25" width="1680" height="960" />
+    </state>
+    <state x="409" y="166" key="SettingsEditor/0.25.1680.960@0.25.1680.960" timestamp="1616521106021" />
+    <state width="500" height="445" key="SwitcherDM" timestamp="1617751941191">
+      <screen x="0" y="25" width="1680" height="958" />
+    </state>
+    <state width="500" height="445" key="SwitcherDM/0.25.1680.958@0.25.1680.958" timestamp="1617751941191" />
+    <state x="436" y="228" key="Vcs.Push.Dialog.v2" timestamp="1618981061774">
+      <screen x="0" y="25" width="1680" height="958" />
+    </state>
+    <state x="436" y="228" key="Vcs.Push.Dialog.v2/0.25.1680.958@0.25.1680.958" timestamp="1618981061774" />
+    <state x="569" y="123" width="656" height="736" key="find.popup" timestamp="1618983882133">
+      <screen x="0" y="25" width="1680" height="959" />
+    </state>
+    <state x="569" y="123" width="597" height="735" key="find.popup/0.25.1680.958@0.25.1680.958" timestamp="1618981080452" />
+    <state x="569" y="123" width="656" height="736" key="find.popup/0.25.1680.959@0.25.1680.959" timestamp="1618983882133" />
+    <state x="485" y="211" width="700" height="530" key="recent.locations.popup" timestamp="1618981069529">
+      <screen x="0" y="25" width="1680" height="958" />
+    </state>
+    <state x="485" y="211" width="700" height="530" key="recent.locations.popup/0.25.1680.958@0.25.1680.958" timestamp="1618981069529" />
+    <state x="519" y="239" key="run.anything.popup" timestamp="1616551170967">
+      <screen x="0" y="25" width="1680" height="964" />
+    </state>
+    <state x="519" y="239" key="run.anything.popup/0.25.1680.964@0.25.1680.964" timestamp="1616551170967" />
+    <state x="489" y="255" width="670" height="674" key="search.everywhere.popup" timestamp="1617760484477">
+      <screen x="0" y="25" width="1680" height="958" />
+    </state>
+    <state x="489" y="255" width="670" height="672" key="search.everywhere.popup/0.25.1680.956@0.25.1680.956" timestamp="1617752043474" />
+    <state x="489" y="255" width="670" height="674" key="search.everywhere.popup/0.25.1680.958@0.25.1680.958" timestamp="1617760484477" />
+    <state x="489" y="257" width="670" height="676" key="search.everywhere.popup/0.25.1680.964@0.25.1680.964" timestamp="1616524035319" />
+    <state x="489" y="258" width="670" height="679" key="search.everywhere.popup/0.25.1680.967@0.25.1680.967" timestamp="1617274831439" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
