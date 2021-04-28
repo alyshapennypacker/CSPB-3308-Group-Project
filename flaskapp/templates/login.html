@@ -2,6 +2,7 @@
 
 {% extends "layout.html" %}
 {% block content %}
+<body class=dark>
     <div class="content-section">
         <form method="POST" action="">
             {{ form.hidden_tag() }}
@@ -19,7 +20,8 @@
                             {% endfor %}
                         </div>
                     {% else %}
-                        {{ form.email(class="form-control form-control-lg") }}
+                    <!-- Add placeholder text -->
+                        {{ form.email(class="form-control form-control-lg", placeholder="first.last@colorado.edu || identikey@colorado.edu") }}
                     {% endif %}
                 </div>
                 <!-- Password  -->
@@ -44,13 +46,14 @@
                 </div>
             </fieldset>
             <div class="form-group">
-                {{ form.submit(class="btn btn-outline-info") }}
+                {{ form.submit(class="btn-primary") }}
             </div>
             <small class="text-muted ml-2">
                 <a href="#">Forgot Password?</a>
             </small>
         </form>
     </div>
+</body>
     
     <!-- Link to "/register" route -->
     <div class="border-top pt-3">

@@ -30,7 +30,10 @@ ProjectCareers = db.Table("projectcareer",
 class Users(db.Model, UserMixin):
     ''' Users Table: 
     User profile information 
-    UserMixin to inherit std methods (isAuthenticated, isActive, etc.)
+
+    UserMixin allows "current_user" to inherit:
+        - Users table attributes/columns
+        - Standard methods (isAuthenticated, isActive, etc.)
     '''
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True, nullable=False)
@@ -38,7 +41,7 @@ class Users(db.Model, UserMixin):
     last_name = db.Column(db.String(20), nullable=False)
     email = db.Column(db.String(50), unique=True, nullable=False)
     password = db.Column(db.String(20), nullable=False)
-    profile_image = db.Column(db.String(20), nullable=False, default="profile.jpg")
+    profile_image = db.Column(db.String(20), nullable=False, default="Portrait_Placeholder.png")
     date_joined = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     is_moderator = db.Column(db.Boolean, default=False, nullable=False)
     # relationships to Association table
@@ -61,7 +64,7 @@ class Projects(db.Model):
     creation_timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     start_date = db.Column(db.DateTime, nullable=True, default=datetime.utcnow)
     target_end_date = db.Column(db.DateTime, nullable=True, default=datetime.utcnow)
-    # relationships to Association table
+    # relationships to Association table 
     owner_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False, default=1)
     owner = db.relationship("Users", foreign_keys=owner_id, backref="owned_projects", uselist=False)
     members = db.relationship('Users', secondary=UserProjects, lazy='subquery', backref="get_projects")

@@ -23,7 +23,7 @@
     <header class="site-header">
         <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
             <div class="container">
-                <a class="navbar-brand mr-4" href="/"> Project Grouper </a>
+                <a class="navbar-brand" href="/"> Project Grouper </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -38,9 +38,18 @@
                     <!-- Navbar Right Side: Updated per session status -->
                     <div class="navbar-nav">
                         {% if current_user.is_authenticated %}
-                        <a class="nav-item nav-link" href="{{ url_for('projects') }}">My Projects</a>
-                            <a class="nav-item nav-link" href="{{ url_for('account') }}">Account</a>
-                            <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
+                            <a class="btn btn-primary btn-sml" href="{{ url_for('new_project') }}">Create Project</a>
+                            <!-- <button class="btn success">Success</button> -->
+
+                            <!-- Profile pic drop down menu -->
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img src="{{ url_for('static', filename='profile_pics/' + current_user.profile_image) }}" width="30" height="30" class="rounded-circle">
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <a class="dropdown-item" href="{{ url_for('account') }}">Account</a>
+                                    <a class="dropdown-item" href="{{ url_for('logout') }}">Logout</a>
+                                </div>
                         {% else %}
                             <a class="nav-item nav-link" href="{{ url_for('login') }}">Login</a>
                             <a class="nav-item nav-link" href="{{ url_for('register') }}">Register</a>
@@ -51,11 +60,13 @@
         </nav>
     </header>
 
+
     <!-- Container for website content -->
     <main role="main" class="container">
       <div class="row">
-        <div class="col-md-8">
-         <!-- Display flashed messages -->
+        <div class="col-md-9">
+
+         <!-- Flashed messages: Displayed at the top of content containers -->
           {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
               {% for category, message in messages %}
@@ -66,6 +77,7 @@
             {% endif %}
           {% endwith %}
           
+          <!-- <content goes here>  -->
           {% block content %}
           {% endblock %}
         </div>

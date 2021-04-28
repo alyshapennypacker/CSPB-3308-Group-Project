@@ -12,7 +12,10 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False # Supress deprecation messa
 # Site Extensions:
 db = SQLAlchemy(app)
 bcrypter = Bcrypt(app) # Password hashing algo
-login_manager = LoginManager(app) # Manages client sesions
-login_manager.login_view, login_manager.login_message_category= 'login', 'info'
+
+# Configure login manager client sesions
+login_manager = LoginManager(app)
+login_manager.login_view = 'login' 
+login_manager.login_message_category = 'info'
 
 from flaskapp import routes # Import routes last to avoid 404 errors
