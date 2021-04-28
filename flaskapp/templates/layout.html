@@ -64,7 +64,7 @@
     <!-- Container for website content -->
     <main role="main" class="container">
       <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-8">
 
          <!-- Flashed messages: Displayed at the top of content containers -->
           {% with messages = get_flashed_messages(with_categories=true) %}
@@ -81,8 +81,12 @@
           {% block content %}
           {% endblock %}
         </div>
+        {% block sidebar %}
+        {% endblock %}
       </div>
     </main>
+
+    
 
 
     <!-- Optional JavaScript -->
