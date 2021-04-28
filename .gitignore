@@ -3,7 +3,6 @@ __pycache__/
 *.pyo
 # Project specific 
 venv/
-# .vscode/
-scratch/src/
-__init__.py
 pylintrc
+.vscode/
+.idea
