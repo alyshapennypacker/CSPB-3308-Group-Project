@@ -2,27 +2,24 @@
 {% block content %}
     <article class="media content-section">
         <!-- Add user profile image  -->
-        <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + single_project.owner.profile_image) }}">
+        <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + current_project.owner.profile_image) }}">
         <!-- Content -->
         <div class="media-body">
             <!-- Header section -->
             <div class="article-metadata">
-                <a class="mr-2" href="#">{{ single_project.owner.first_name }} {{ single_project.owner.last_name }}</a>
-                <small class="text-muted">{{ single_project.creation_timestamp.strftime('%B %d, %Y') }}</small>
+                <a class="mr-2" href="#">{{ current_project.owner.first_name }} {{ current_project.owner.last_name }}</a>
+                <small class="text-muted">{{ current_project.creation_timestamp.strftime('%B %d, %Y') }}</small>
                 <!-- Update/Delete buttons if project owner updates -->
-                {% if single_project.owner == current_user %}
+                {% if current_project.owner == current_user %}
                     <div>
-                        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('update_project', project_id=single_project.id) }}">Update</a>
+                        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('update_project', project_id=current_project.id) }}">Update</a>
                         <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
                     </div>
-
-
-
 
                 <!-- Join project if not owner -->
                 {% else %}
                     <div>
-                        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('update_project', project_id=single_project.id) }}">Join</a>
+                        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('update_project', project_id=current_project.id) }}">Join</a>
                         <!-- <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#joinModal">Delete</button> -->
                     </div>
 
@@ -34,9 +31,35 @@
                 {% endif %}
             </div>
             <!-- Body section -->
-            <h2 class="article-title ">{{ single_project.name }}</h2>
-            <p class="article-content">{{ single_project.desc }}</p>
+            <h2 class="article-title ">{{ current_project.name }}</h2>
+            <p class="article-content">{{ current_project.desc }}</p>
+            <hr>
 
+
+            <!-- Move to side bar -->
+            <h5>Move to side bar</h5>
+            <strong> Project programming languages  </strong>
+            <small class="article-content"> 
+                "programming languages" compiled from <a href="https://insights.stackoverflow.com/survey/2019#technology">2020 Stack overflow survey </a>
+            </small>
+            <p class="article-content"> 
+                <a class="mr-2" href="#">{{ current_project.languages}} </a>
+                Loop over this and just show as simple bullet points
+            </p>
+            <hr>
+
+            
+            <strong> Project Developer Roles  </strong>
+            <small class="article-content"> 
+                "Developer Roles" compiled from <a href="https://insights.stackoverflow.com/survey/2020#developer-profile-developer-type-all-respondents">2020 Stack overflow survey </a>
+            </small>
+            <p class="article-content"> 
+                <a class="mr-2" href="#">{{ current_project.careers }} </a>
+                Loop over this and just show as simple bullet points
+            </p>
+            
+                
+ 
         </div>
         </article>
 
@@ -59,7 +82,7 @@
                 </div>
                 <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <form action="{{ url_for('delete_project', project_id=single_project.id) }}" method="POST">
+                <form action="{{ url_for('delete_project', project_id=current_project.id) }}" method="POST">
                     <input class="btn btn-danger" type="submit" value="Join">
                 </form>
                 </div>
@@ -93,7 +116,7 @@
                 <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 
-                <form action="{{ url_for('delete_project', project_id=single_project.id) }}" method="POST">
+                <form action="{{ url_for('delete_project', project_id=current_project.id) }}" method="POST">
                     <input class="btn btn-danger" type="submit" value="Delete">
                 </form>
                 </div>
