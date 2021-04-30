@@ -1,5 +1,5 @@
 # Make a note about (skelaton)
-# source: https://github.com/CoreyMSchafer/code_snippets/blob/master/Python/Flask_Blog
+# source: https://github.com/CoreyMSchafer/code_snippets/blob/master/Python/Flask_Blog/06-Login-Auth/flaskblog/routes.py
 
 import secrets
 import os
@@ -15,20 +15,22 @@ from flaskapp.forms import RegistrationForm, LoginForm, UpdateAccountForm, Proje
 @app.route('/')
 @app.route('/home')
 def home():
-    projects = Projects.query.all() 
-    projects = sorted(projects, key= lambda x: x.creation_timestamp, reverse=True)
+    projects = Projects.query.all()
+    projects = sorted(projects, key=lambda x: x.creation_timestamp, reverse=True)
     for project in projects:
         print(project.creation_timestamp)
     return render_template('home.html', projects=projects)
+
 
 @app.route('/about')
 def about():
     return render_template('about.html')
 
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     """ Validate user submission, then re-direct to home page 
-    
+
     Validate:
         - Form fields contstraints
         - Database: Confirm user is not duplicate"""
@@ -36,15 +38,15 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit() and request.method == 'POST':
         hashed_password = bcrypter.generate_password_hash(form.password.data).decode('utf-8')
-        user = Users(password=hashed_password, email=form.email.data, first_name=form.firstname.data, last_name=form.lastname.data)
+        user = Users(password=hashed_password, email=form.email.data,
+                     first_name=form.firstname.data, last_name=form.lastname.data)
         db.session.add(user)
         db.session.commit()
         flash(f'Account created for {form.firstname.data} {form.lastname.data}!', category='success')
         return redirect(url_for('home'))
-    
+
     return render_template('register.html', title='Register', form=form)
 
-        
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -55,10 +57,10 @@ def login():
         - Form field contstraints
         - Database: Confirm user has an account """
 
-    form = LoginForm()    
+    form = LoginForm()
     if current_user.is_authenticated:  # if already logged in
         return redirect(url_for('home'))
-    
+
     # Validate login fields in database
     if form.validate_on_submit() and request.method == 'POST':
         form_email, form_password = form.email.data, form.password.data
@@ -73,12 +75,12 @@ def login():
 
     return render_template('login.html', title='Login', form=form)
 
+
 @app.route("/logout")
 def logout():
     flash(f"Successfully Logged out {current_user.first_name}!", category='success')
     logout_user()
     return redirect(url_for('home'))
-    
 
 
 def save_picture_helper(form_picture):
@@ -86,7 +88,7 @@ def save_picture_helper(form_picture):
     1) Takes pictures field (.jpg, .png) submitted on form
     2) Set save location for picures
     3) Resize and save image '''
-    
+
     # creating unique name when saving pictures
     rand_hex = secrets.token_hex(nbytes=8)
     _, file_ext = os.path.splitext(form_picture.filename)
@@ -95,21 +97,22 @@ def save_picture_helper(form_picture):
     picture_path = os.path.join(app.root_path, 'static/profile_pics', picture_filename)
 
     # image resizing and saving
-    output_size = (125,125)
+    output_size = (125, 125)
     img = Image.open(form_picture)
     img.thumbnail(output_size)
     img.save(picture_path)
 
     return picture_filename
 
-@app.route("/account", methods=['GET','POST']) 
+
+@app.route("/account", methods=['GET', 'POST'])
 @login_required
 def account():
     ''' User account route '''
 
     form = UpdateAccountForm()
     if form.validate_on_submit() and request.method == 'POST':
-        if form.picture.data: # Save and Set profile picture
+        if form.picture.data:  # Save and Set profile picture
             picture_file = save_picture_helper(form.picture.data)
             current_user.profile_image = picture_file
 
@@ -126,7 +129,7 @@ def account():
 
     image_file = url_for('static', filename=f'/profile_pics/{current_user.profile_image}')
 
-    return render_template('account.html', title='Account',image_file=image_file, form=form)
+    return render_template('account.html', title='Account', image_file=image_file, form=form)
 
 
 @app.route("/projects/new", methods=['GET', 'POST'])
@@ -140,17 +143,17 @@ def new_project():
 
         # Adding Multiple languages to a project
         for language in form.languages.data:
-            project_language = Languages.query.filter_by(id=language).first()       
-            new_project.languages.append(project_language)       
-        
+            project_language = Languages.query.filter_by(id=language).first()
+            new_project.languages.append(project_language)
+
         # Adding Multiple Careers to a project
         for career in form.careers_field.data:
-            project_career = Careers.query.filter_by(id=career).first()       
-            new_project.careers.append(project_career)      
+            project_career = Careers.query.filter_by(id=career).first()
+            new_project.careers.append(project_career)
 
-        new_project.members.append(current_user)      
-        db.session.commit() 
-        
+        new_project.members.append(current_user)
+        db.session.commit()
+
         flash("Your post has been created successfully!", "success")
         return redirect(url_for('home'))
     return render_template('create_project.html', legend='New Project', form=form)
@@ -175,7 +178,7 @@ def update_project(project_id):
     if form.validate_on_submit() and request.method == 'POST':
         current_project.name = form.title.data
         current_project.desc = form.content.data
-        
+
         # Reset exising skills, so User inputs overrides existing values
         current_project.languages = []
         current_project.careers = []
@@ -187,10 +190,10 @@ def update_project(project_id):
                 current_project.languages.append(project_language)
 
         for career in form.careers_field.data:
-            project_career = Careers.query.filter_by(id=career).first()       
-            current_project.careers.append(project_career)      
+            project_career = Careers.query.filter_by(id=career).first()
+            current_project.careers.append(project_career)
         db.session.commit()
-        
+
         flash('Your post has been updated!', 'success')
         return redirect(url_for('project', project_id=current_project.id))
 
@@ -199,6 +202,7 @@ def update_project(project_id):
         form.content.data = current_project.desc
 
     return render_template('create_project.html', title='Update Project', form=form, legend='Update Project')
+
 
 @app.route("/projects/<int:project_id>/delete", methods=['POST'])
 @login_required
@@ -212,7 +216,7 @@ def delete_project(project_id):
     return redirect(url_for('home'))
 
 
-@app.route("/projects/<int:project_id>/join", methods=['GET','POST'])
+@app.route("/projects/<int:project_id>/join", methods=['GET', 'POST'])
 @login_required
 def join_project(project_id):
     current_project = Projects.query.get_or_404(project_id)
@@ -222,7 +226,7 @@ def join_project(project_id):
     return redirect(url_for('project', project_id=project_id))
 
 
-@app.route("/projects/<int:project_id>/leave", methods=['GET','POST'])
+@app.route("/projects/<int:project_id>/leave", methods=['GET', 'POST'])
 @login_required
 def leave_project(project_id):
     current_project = Projects.query.get_or_404(project_id)

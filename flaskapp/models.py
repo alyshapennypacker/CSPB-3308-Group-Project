@@ -14,17 +14,17 @@ UserProjects = db.Table("userproject",
                         db.Column("user_id", db.Integer, db.ForeignKey("user.id"), primary_key=True),
                         db.Column("project_id", db.Integer, db.ForeignKey("project.id"), primary_key=True))
 UserLanguages = db.Table("userlanguage",
-                        db.Column("user_id", db.Integer, db.ForeignKey("user.id"), primary_key=True),
-                        db.Column("language_id", db.Integer, db.ForeignKey("language.id"), primary_key=True))
+                         db.Column("user_id", db.Integer, db.ForeignKey("user.id"), primary_key=True),
+                         db.Column("language_id", db.Integer, db.ForeignKey("language.id"), primary_key=True))
 UserCareers = db.Table("usercareer",
-                        db.Column("user_id", db.Integer, db.ForeignKey("user.id"), primary_key=True),
-                        db.Column("career_id", db.Integer, db.ForeignKey("career.id"), primary_key=True))
+                       db.Column("user_id", db.Integer, db.ForeignKey("user.id"), primary_key=True),
+                       db.Column("career_id", db.Integer, db.ForeignKey("career.id"), primary_key=True))
 ProjectLanguages = db.Table("projectlanguage",
-                        db.Column("project_id", db.Integer, db.ForeignKey("project.id"), primary_key=True),
-                        db.Column("language_id", db.Integer, db.ForeignKey("language.id"), primary_key=True))
+                            db.Column("project_id", db.Integer, db.ForeignKey("project.id"), primary_key=True),
+                            db.Column("language_id", db.Integer, db.ForeignKey("language.id"), primary_key=True))
 ProjectCareers = db.Table("projectcareer",
-                        db.Column("project_id", db.Integer, db.ForeignKey("project.id"), primary_key=True),
-                        db.Column("career_id", db.Integer, db.ForeignKey("career.id"), primary_key=True))
+                          db.Column("project_id", db.Integer, db.ForeignKey("project.id"), primary_key=True),
+                          db.Column("career_id", db.Integer, db.ForeignKey("career.id"), primary_key=True))
 
 
 class Users(db.Model, UserMixin):
@@ -48,7 +48,6 @@ class Users(db.Model, UserMixin):
     languages = db.relationship('Languages', secondary=UserLanguages, lazy='subquery', backref="get_users")
     careers = db.relationship('Careers', secondary=UserCareers, lazy='subquery', backref="get_users")
 
-
     def __repr__(self):
         return f"User('{self.first_name}', '{self.last_name}', '{self.email}')"
 
@@ -64,7 +63,7 @@ class Projects(db.Model):
     creation_timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     start_date = db.Column(db.DateTime, nullable=True, default=datetime.utcnow)
     target_end_date = db.Column(db.DateTime, nullable=True, default=datetime.utcnow)
-    # relationships to Association table 
+    # relationships to Association table
     owner_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False, default=1)
     owner = db.relationship("Users", foreign_keys=owner_id, backref="owned_projects", uselist=False)
     members = db.relationship('Users', secondary=UserProjects, lazy='subquery', backref="get_projects")
@@ -82,7 +81,7 @@ class Languages(db.Model):
     __tablename__ = 'language'
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     name = db.Column(db.String(50), unique=True, nullable=False)
-    desc = db.Column(db.String(250),nullable=False, default="wikisnippet")
+    desc = db.Column(db.String(250), nullable=False, default="wikisnippet")
     image = db.Column(db.String(20), nullable=False, default="language.jpg")
 
     def __repr__(self):
