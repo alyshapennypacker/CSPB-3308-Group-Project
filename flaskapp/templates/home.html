@@ -12,7 +12,7 @@
                     <small class="text-muted">{{ project.creation_timestamp.strftime('%B %d, %Y') }}</small>
                 </div>
                 <!-- Body section, each project's title is link to project -->
-                <h2><a class="article-title" href="{{ url_for('project', project_id=project.id) }}">{{ project.name }}</a></h2>
+                <h2><a class="article-title" href="{{ url_for('projects.project', project_id=project.id) }}">{{ project.name }}</a></h2>
                 <p class="article-content">{{ project.desc }}</p>
             </div>
             </article>
