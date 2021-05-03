@@ -19,9 +19,8 @@
 > ```pip install -r requirements.txt```  
 > Please note if you are not using Windows to # comment out the pywin32==300 requirement on line 55 of the `requirements.txt` file
 
-4. Set environment variables by running the following shell script
+4. Set environment variables by running the following shell script (if you’re using command prompt replace ```export``` with ```set```)
 > ```source load.sh``` <br>
-> Alternatively if you’re using command prompt replace ```export``` with ```set```
      
 5. Use command-line commands (once environment variables have been set) 
 > ```flask run``` 
