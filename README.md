@@ -17,11 +17,11 @@
 
 3. Install dependencies (alternatively you may need to use  “pip3 install -r requirements.txt”)
 > ```pip install -r requirements.txt```  
-> Please note if you are not using Windows to # comment out the pywin32==300 requirement on line 55 of the requirements.txt file
+> Please note if you are not using Windows to # comment out the pywin32==300 requirement on line 55 of the `requirements.txt` file
 
 4. Set environment variables by running the following shell script
 > ```source load.sh``` <br>
-> Alternatively if you’re not using bash use the replace ```export``` with ```set```
+> Alternatively if you’re using command prompt replace ```export``` with ```set```
      
 5. Use command-line commands (once environment variables have been set) 
 > ```flask run``` 
