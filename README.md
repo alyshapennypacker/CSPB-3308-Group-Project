@@ -1,6 +1,6 @@
 # CSPB-3308-Group-Project
 
-Project Title: Group Project Matchmaker
+Project Title: Project Grouper
 
 Team Members: Daniel Bae, Bryson Murray, Garrett Lubin, and Alysha Pennypacker
 
