@@ -4,11 +4,9 @@
 
 **Team Members**: Daniel Bae, Bryson Murray, Garrett Lubin, and Alysha Pennypacker
 
-**Link To Demo Video**: https://drive.google.com/file/d/1FuO-b7XRzm4Ulzf26LLLD4hwjlfA6hhI/view
-
-**Deployment Link**: www.projectgrouper.com
-
-**Repo Link**: https://github.com/alyshapennypacker/CSPB-3308-Group-Project
+- [Link To Demo Video](https://drive.google.com/file/d/1FuO-b7XRzm4Ulzf26LLLD4hwjlfA6hhI/view)
+- [Deployment Link](www.projectgrouper.com)
+- [Repo Link](https://github.com/alyshapennypacker/CSPB-3308-Group-Project)
 ***
 
 ### Documentation: 
