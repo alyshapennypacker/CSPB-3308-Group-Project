@@ -9,24 +9,22 @@
 ### Documentation:
 
 1. Instantiate Virtual Environment (alternatively you may need to use “python3 -m venv venv”)
-```python -m venv venv ```
+> ```python -m venv venv ```
 
 
 2. Activate Environment (alternatively you may need to use “. venv/bin/activate”)
-``` source venv/Scripts/activate ``` 
+> ``` source venv/Scripts/activate ``` 
 
 3. Install dependencies (alternatively you may need to use  “pip3 install -r requirements.txt”)
-```pip install -r requirements.txt```  
+> ```pip install -r requirements.txt```  
 > Please note if you are not using Windows to # comment out the pywin32==300 requirement on line 55 of the requirements.txt file
 
 4. Set environment variables by running the following shell script
-```source load.sh```
-Alternatively if you’re not using bash use the following command-line commands:
-     export FLASK_APP=run.py
-     export FLASK_ENV=development
+> ```source load.sh``` <br>
+> Alternatively if you’re not using bash use the replace ```export``` with ```set```
      
 5. Use command-line commands (once environment variables have been set) 
-```flask run``` 
+> ```flask run``` 
 
 You should now be able to view this project on your local machine available at Port 5000
 
