@@ -18,7 +18,7 @@ source venv/Scripts/activate (alternatively you may need to use “. venv/bin/ac
 pip install -r requirements.txt (alternatively you may need to use  “pip3 install -r requirements.txt”) 
 Please note if you are not using Windows to # comment out the pywin32==300 requirement on line 55 of the requirements.txt file
 
-4.Set environment variables by running the following shell script
+4. Set environment variables by running the following shell script
 source load.sh (alternatively you can run the load.sh file if the source command does not work in your environment)
   If you’re not using bash:  use the following command-line commands:
      export FLASK_APP=run.py
