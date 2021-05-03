@@ -9,7 +9,7 @@ Team Members: Daniel Bae, Bryson Murray, Garrett Lubin, and Alysha Pennypacker
 Documentation:
 
 1. Instantiate Virtual Environment: 
-python -m venv venv
+python -m venv venv (alternatively you may need to use “python3 -m venv venv”)
 
 2. Activate Environment
 source venv/Scripts/activate (alternatively you may need to use “. venv/bin/activate”)
