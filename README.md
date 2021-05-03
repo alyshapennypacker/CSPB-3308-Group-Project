@@ -21,7 +21,7 @@
 
 3. Install dependencies (alternatively you may need to use  “pip3 install -r requirements.txt”)
 > ```pip install -r requirements.txt```  
-> Please note if you are not using Windows to # comment out the pywin32==300 requirement on line 55 of the `requirements.txt` file
+>- Please note if you are not using Windows to # comment out the pywin32==300 requirement on line 55 of the `requirements.txt` file
 
 4. Set environment variables by running the following shell script (if you’re using command prompt replace ```export``` with ```set```)
 > ```source load.sh``` <br>
